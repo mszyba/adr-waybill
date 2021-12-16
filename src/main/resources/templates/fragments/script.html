@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Spring Boot Thymeleaf Application - Fragments</title>
+</head>
+<body>
+
+<th:block th:fragment="script">
+  <script th:src="@{/webjars/feather-icons/4.28.0/dist/feather.js}"></script>
+  <script th:src="@{/webjars/bootstrap/5.0.0/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/webjars/popper.js/2.9.2/umd/popper.min.js}"></script>
+</th:block>
+
+</body>
+</html>
