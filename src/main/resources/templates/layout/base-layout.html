@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="layout(titleContent, subtitle, content)">
+
+<head th:replace="fragments/base :: baseHeader(~{::link})">
+  <title>Company List</title>
+  <link rel="stylesheet">
+</head>
+
+<body class="sb-nav-fixed">
+
+<!--Navbar-->
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div id="layoutSidenav">
+
+  <!--Sidebar-->
+  <div th:replace="fragments/sidebar :: sidebar" id="layoutSidenav_nav"></div>
+
+  <div id="layoutSidenav_content">
+    <main>
+      <div class="container-fluid px-4">
+
+        <!--SECTION TITLE-->
+        <h1 th:replace="${titleContent}" class="mt-4">Title Content</h1>
+          <ol class="breadcrumb mb-4">
+            <!--SUBTITLE-->
+            <li th:replace="${subtitle}" class="breadcrumb-item active">Subtitle Content</li>
+          </ol>
+
+        <!--CONTENT-->
+        <section th:replace="${content}">
+          <p>Ta część będzie zastąpiona przez section id content z danego pliku</p>
+        </section>
+      </div>
+    </main>
+
+    <!--Footer-->
+    <footer th:replace="fragments/footer :: footer"></footer>
+  </div>
+</div>
+
+<script th:replace="fragments/base :: script"></script>
+
+</body>
+</html>
