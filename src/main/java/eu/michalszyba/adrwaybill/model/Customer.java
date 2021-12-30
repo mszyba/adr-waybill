@@ -16,6 +16,7 @@ public class Customer {
     private Long id;
 
     private String customerName;
+    private String VatNumber;
     private String address;
     private String postcode;
     private String city;
