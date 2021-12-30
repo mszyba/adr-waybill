@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "companies")
@@ -23,4 +25,7 @@ public class Company {
     private String email;
     private String phone;
     private boolean isActive = true;
+
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    private List<User> users = new ArrayList<>();
 }
