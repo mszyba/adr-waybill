@@ -4,10 +4,7 @@ import eu.michalszyba.adrwaybill.model.Customer;
 import eu.michalszyba.adrwaybill.service.CustomerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,5 +39,15 @@ public class CustomerController {
         model.addAttribute("customer", customer);
         customerService.save(customer);
         return "redirect:/customer/list";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editCustomerById(@PathVariable Long id, Model model) {
+        if (customerService.getById(id) == null) {
+            return "redirect:/customer/list";
+        } else {
+            model.addAttribute("customer", customerService.getById(id));
+            return "customer/customer-details";
+        }
     }
 }
