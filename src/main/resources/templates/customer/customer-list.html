@@ -29,9 +29,15 @@
             <td th:text="${customer.city}"></td>
             <td th:text="${customer.country}"></td>
             <td>
-              <a th:href="@{/customer/edit/{id}(id=${customer.id})}">
-                <i class="bi-pencil-square"></i>
-              </a>
+              <div class="btn-group btn-group-sm" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  Action
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <li><a class="dropdown-item" th:href="@{/customer/edit/{id}(id=${customer.id})}">Edit</a></li>
+                  <li><a class="dropdown-item alert-danger" th:href="@{/customer/delete/{id}(id=${customer.id})}">Delete</a></li>
+                </ul>
+              </div>
             </td>
           </tr>
           </tbody>
