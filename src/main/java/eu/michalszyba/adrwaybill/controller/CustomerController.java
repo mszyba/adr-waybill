@@ -50,4 +50,14 @@ public class CustomerController {
             return "customer/customer-details";
         }
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteCustomerById(@PathVariable Long id) {
+        if (customerService.getById(id) == null) {
+            return "redirect:/customer/list";
+        } else {
+            customerService.deleteById(id);
+            return "redirect:/customer/list";
+        }
+    }
 }

@@ -1,10 +1,9 @@
 <!DOCTYPE HTML>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org"
-    th:replace="layout/base-layout :: layout(~{ :: #titleContent}, ~{ :: #subtitle}, ~{ :: #content})">
+    th:replace="layout/base-layout :: layout(~{ :: #titleContent}, ~{}, ~{ :: #content})">
 
 <body>
   <h1 id="titleContent">Lista użytkowników</h1>
-  <li id="subtitle">To jest lista uźytkowników, ale nie wiem czy ten podtytuł jest potrzebny</li>
 
   <section id="content">
     <div class="card mb-4">
