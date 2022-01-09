@@ -18,6 +18,7 @@ public class Company {
     private Long id;
 
     private String companyName;
+    private String VatNumber;
     private String address;
     private String postcode;
     private String city;
