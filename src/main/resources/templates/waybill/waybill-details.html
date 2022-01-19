@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+    th:replace="layout/base-layout :: layout(~{ :: #titleContent}, ~{}, ~{ :: #content})">
+
+<body>
+<!--  <h1 id="titleContent">Dodaj klienta</h1>-->
+<div id="titleContent">
+  <h1 th:if="${waybill.id == null}" class="mt-4">Dodaj List ADR</h1>
+  <h1 th:unless="${waybill.id == null}" class="mt-4">Edytuj List ADR</h1>
+</div>
+
+  <section id="content">
+    <div class="card mb-4">
+      <div class="card-header">ADR Waybill Details</div>
+      <div class="card-body">
+        <form th:action="@{/waybill/add}" th:object="${waybill}" method="post">
+          <!-- Form Row-->
+          <div class="row gx-3 mb-3">
+            <input type="hidden" th:field="*{id}" th:value="*{id}">
+            <!-- Form Group (Customer name)-->
+            <div class="col-md-6">
+              <label class="small mb-1" for="company">Company</label>
+              <select th:field="*{companyId}" class="form-select" id="company" required>
+                <th:block th:each="company : ${companies}">
+                  <option th:text="${company.companyName}" th:value="${company.id}"></option>
+                </th:block>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="small mb-1" for="company">Customer</label>
+              <select th:field="*{customerId}" class="form-select" id="customer" required>
+                <th:block th:each="customer : ${customers}">
+                  <option th:text="${customer.customerName}" th:value="${customer.id}"></option>
+                </th:block>
+              </select>
+            </div>
+
+
+          </div>
+          <!--Form Row-->
+          <div class="row gx-3 mb-3">
+            <!-- Form Group (driver)-->
+            <div class="col-md-6">
+              <label class="small mb-1" for="driveName">Drive Name</label>
+              <input th:field="*{driverName}" class="form-control" id="driveName" type="text" placeholder="" value="">
+            </div>
+            <div class="col-md-6">
+              <label class="small mb-1" for="driveDocument">Drive Documents</label>
+              <input th:field="*{driverDocument}" class="form-control" id="driveDocument" type="text" placeholder="" value="">
+            </div>
+          </div>
+
+          <!--Form Row-->
+          <div class="row gx-3 mb-3">
+            <!-- Form Group (driver)-->
+            <div class="col-md-6">
+              <label class="small mb-1" for="aaa">Drive Name</label>
+              <input th:field="*{descriptionDelivery}" class="form-control" id="aaa" type="text" placeholder="" value="">
+            </div>
+            <div class="col-md-6">
+              <label class="small mb-1" for="bb">Drive Documents</label>
+              <input th:field="*{transportation}" class="form-control" id="bb" type="text" placeholder="" value="">
+            </div>
+          </div>
+
+          <!--Form Row-->
+          <div class="row gx-3 mb-3">
+            <div class="form-control" th:each="item, itemStat : *{shippedItems}">
+            <!-- Form Group (Shipped Item)-->
+            <div class="col-md-6">
+              <label class="small mb-1" for="unNumber">UN Number</label>
+              <input th:field="*{shippedItems[__${itemStat.index}__].unNumber}" class="form-control" id="unNumber" type="text" placeholder="" value="">
+            </div>
+            <div class="col-md-6">
+              <label class="small mb-1" for="unClass">UN Class</label>
+              <input th:field="*{shippedItems[__${itemStat.index}__].unClass}" class="form-control" id="unClass" type="text" placeholder="" value="">
+            </div>
+            <div class="col-md-6">
+              <label class="small mb-1" for="quantity">Quantity</label>
+              <input th:field="*{shippedItems[__${itemStat.index}__].quantity}" class="form-control" id="quantity" type="text" placeholder="" value="">
+            </div>
+            <div class="col-md-6">
+              <label class="small mb-1" for="volume">Volume</label>
+              <input th:field="*{shippedItems[__${itemStat.index}__].volume}" class="form-control" id="volume" type="text" placeholder="" value="">
+            </div>
+            </div>
+          </div>
+
+          <!--          &lt;!&ndash;Form Row&ndash;&gt;-->
+<!--          <div class="row gx-3 mb-3">-->
+<!--            &lt;!&ndash; Form Group (contact)&ndash;&gt;-->
+<!--            <div class="col-md-6">-->
+<!--              <label class="small mb-1" for="emailAddress">E-mail address</label>-->
+<!--              <input th:field="*{email}" class="form-control" id="emailAddress" type="text" placeholder="" value="">-->
+<!--            </div>-->
+<!--            <div class="col-md-6">-->
+<!--              <label class="small mb-1" for="phone">Phone Number</label>-->
+<!--              <input th:field="*{phone}" class="form-control" id="phone" type="text" placeholder="" value="">-->
+<!--            </div>-->
+<!--          </div>-->
+          <!--Add new Shipped Item button-->
+          <button class="btn btn-warning" type="submit" name="addShippedItem">Add new Item</button>
+
+          <!--Submit button-->
+          <button class="btn btn-dark" type="submit" name="saveForm">Save</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
