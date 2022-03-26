@@ -1,13 +1,20 @@
 package eu.michalszyba.adrwaybill.controller;
 
+import com.lowagie.text.DocumentException;
 import eu.michalszyba.adrwaybill.model.Company;
 import eu.michalszyba.adrwaybill.model.Customer;
 import eu.michalszyba.adrwaybill.service.CompanyService;
+import eu.michalszyba.adrwaybill.util.PDFGenerator;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -61,5 +68,24 @@ public class CompanyController {
             companyService.deleteById(id);
             return "redirect:/admin/company/list";
         }
+    }
+
+    @GetMapping("/pdf")
+    public void generatePdf(HttpServletResponse response) throws DocumentException, IOException {
+
+        response.setContentType("application/pdf");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd:HH:mm:SS");
+
+        String currentDateTime = dateFormat.format(new Date());
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=pdf_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        List<Company> companyList = companyService.getAllCompany();
+
+        PDFGenerator generator = new PDFGenerator();
+
+        generator.setCompanies(companyList);
+        generator.generate(response);
     }
 }

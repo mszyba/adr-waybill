@@ -37,8 +37,7 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                   <li>
-<!--                    TODO: need change to pdf link-->
-                    <a class="dropdown-item" th:href="@{/waybill/list}">Show</a>
+                    <a class="dropdown-item" th:href="@{/waybill/pdf/{id}(id=${waybill.id})}">Export pdf</a>
                   </li>
                   <li>
                     <!-- Button trigger modal -->

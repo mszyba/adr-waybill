@@ -1,5 +1,6 @@
 package eu.michalszyba.adrwaybill.controller;
 
+import com.lowagie.text.DocumentException;
 import eu.michalszyba.adrwaybill.model.Company;
 import eu.michalszyba.adrwaybill.model.Customer;
 import eu.michalszyba.adrwaybill.model.Un;
@@ -8,10 +9,17 @@ import eu.michalszyba.adrwaybill.service.CompanyService;
 import eu.michalszyba.adrwaybill.service.CustomerService;
 import eu.michalszyba.adrwaybill.service.UnService;
 import eu.michalszyba.adrwaybill.service.WaybillService;
+import eu.michalszyba.adrwaybill.util.PDFGenerator;
+import eu.michalszyba.adrwaybill.util.PDFGeneratorWaybill;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -81,5 +89,24 @@ public class WaybillController {
             waybillService.deleteById(id);
             return "redirect:/waybill/list";
         }
+    }
+
+    @GetMapping("/pdf/{id}")
+    public void generatePdf(HttpServletResponse response, @PathVariable Long id) throws DocumentException, IOException {
+
+        response.setContentType("application/pdf");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss");
+
+        String currentDateTime = dateFormat.format(new Date());
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=pdf_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        Waybill waybill = waybillService.getById(id);
+
+        PDFGeneratorWaybill pdfGeneratorWaybill = new PDFGeneratorWaybill();
+
+        pdfGeneratorWaybill.setWaybill(waybill);
+        pdfGeneratorWaybill.generate(response);
     }
 }
