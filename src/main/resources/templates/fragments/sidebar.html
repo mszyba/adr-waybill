@@ -38,6 +38,17 @@
           <a class="nav-link" th:href="@{/admin/company/list}">List</a>
         </nav>
       </div>
+      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#waybillLayouts" aria-expanded="false" aria-controls="waybillLayouts">
+        <div class="sb-nav-link-icon"><i class="bi bi-list-columns"></i></div>
+        ADR Waybills
+        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+      </a>
+      <div class="collapse" id="waybillLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+        <nav class="sb-sidenav-menu-nested nav">
+          <a class="nav-link" th:href="@{/waybill/add}">Add ADR Waybill</a>
+          <a class="nav-link" th:href="@{/waybill/list}">List</a>
+        </nav>
+      </div>
 
 
       <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

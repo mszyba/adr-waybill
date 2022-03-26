@@ -8,10 +8,7 @@ import eu.michalszyba.adrwaybill.service.CustomerService;
 import eu.michalszyba.adrwaybill.service.WaybillService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,6 +36,11 @@ public class WaybillController {
         return companyService.getAllCompany();
     }
 
+    @ModelAttribute("waybills")
+    public List<Waybill> populateWaybill() {
+        return waybillService.getAllWaybill();
+    }
+
     @GetMapping("/list")
     public String listWaybill() {
         return "waybill/waybill-list";
@@ -60,5 +62,15 @@ public class WaybillController {
     public String postAddWaybill(@ModelAttribute Waybill waybill) {
         waybillService.save(waybill);
         return "redirect:/home";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteWaybillById(@PathVariable Long id) {
+        if (waybillService.getById(id) == null) {
+            return "redirect:/waybill/list";
+        } else {
+            waybillService.deleteById(id);
+            return "redirect:/waybill/list";
+        }
     }
 }

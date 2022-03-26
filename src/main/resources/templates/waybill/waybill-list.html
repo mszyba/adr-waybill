@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+    th:replace="layout/base-layout :: layout(~{ :: #titleContent}, ~{}, ~{ :: #content})">
+
+<body>
+  <h1 id="titleContent">Listy przewozowe</h1>
+
+  <section id="content">
+    <div class="card mb-4">
+      <div class="card-body">
+        <table id="datatablesSimple">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Customer Name</th>
+            <th>Customer City</th>
+            <th>Company Name</th>
+            <th>Company City</th>
+            <th>Points</th>
+            <th>Truck Number</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="waybill : ${waybills}">
+            <td th:text="${waybill.id}"></td>
+            <td th:text="${waybill.customerName}"></td>
+            <td th:text="${waybill.customerCity}"></td>
+            <td th:text="${waybill.companyName}"></td>
+            <td th:text="${waybill.companyCity}"></td>
+            <td th:text="${waybill.points}"></td>
+            <td th:text="${waybill.truckNumber}"></td>
+            <td>
+              <div class="btn-group btn-group-sm" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  Action
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <li>
+<!--                    TODO: need change to pdf link-->
+                    <a class="dropdown-item" th:href="@{/waybill/list}">Show</a>
+                  </li>
+                  <li>
+                    <!-- Button trigger modal -->
+                    <a class="dropdown-item btn alert-danger"
+                       data-bs-toggle="modal"
+                       data-bs-target="#modal-warning"
+                       th:attr="data-bs-target='#modal-warning' + ${waybill.id}">
+                      Delete</a>
+                  </li>
+                  <li>
+                </ul>
+              </div>
+
+              <!-- Modal -->
+              <div class="modal fade" th:id="modal-warning + ${waybill.id}" tabindex="-1" aria-labelledby="modalWarning" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="modalTitle">Warning</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h5>Are you sure you want to delete Waybill ID: <div th:text="${waybill.id}"></div></h5>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <a type="button" class="btn btn-danger" th:href="@{/waybill/delete/{id}(id=${waybill.id})}">
+                        <i class="bi bi-trash"> Delete</i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
