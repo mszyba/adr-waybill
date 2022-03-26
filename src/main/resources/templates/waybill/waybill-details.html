@@ -71,12 +71,19 @@
               <div class="row gx-3 mb-3">
                 <div class="col-md-6">
                   <label class="small mb-1" for="unNumber">UN Number</label>
-                  <input th:field="*{shippedItems[__${itemStat.index}__].unNumber}" class="form-control" id="unNumber" type="text" placeholder="" value="">
+                  <select th:field="*{shippedItems[__${itemStat.index}__].unId}" class="form-select" id="unNumber">
+                    <option th:each="un : ${uns}"
+                            th:value="${un.id}"
+                            th:text="${un.unNumber} + ' ' + ${un.unNameAndDescription} + ', ' + ${un.unLabels} + ', ' + ${un.unPackingGroup}">
+                      Un number, descriptions, label, packaging group
+                    </option>
+                  </select>
+<!--                  <input th:field="*{shippedItems[__${itemStat.index}__].unNumber}" class="form-control" id="unNumber" type="text" placeholder="" value="">-->
                 </div>
-                <div class="col-md-6">
-                  <label class="small mb-1" for="unClass">UN Class</label>
-                  <input th:field="*{shippedItems[__${itemStat.index}__].unClass}" class="form-control" id="unClass" type="text" placeholder="" value="">
-                </div>
+<!--                <div class="col-md-6">-->
+<!--                  <label class="small mb-1" for="unClass">UN Class</label>-->
+<!--                  <input th:field="*{shippedItems[__${itemStat.index}__].unClass}" class="form-control" id="unClass" type="text" placeholder="" value="">-->
+<!--                </div>-->
               </div>
               <!--Row-->
               <div class="row gx-3 mb-3">

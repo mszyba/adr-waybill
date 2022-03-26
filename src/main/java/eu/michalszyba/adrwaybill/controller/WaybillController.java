@@ -2,9 +2,11 @@ package eu.michalszyba.adrwaybill.controller;
 
 import eu.michalszyba.adrwaybill.model.Company;
 import eu.michalszyba.adrwaybill.model.Customer;
+import eu.michalszyba.adrwaybill.model.Un;
 import eu.michalszyba.adrwaybill.model.Waybill;
 import eu.michalszyba.adrwaybill.service.CompanyService;
 import eu.michalszyba.adrwaybill.service.CustomerService;
+import eu.michalszyba.adrwaybill.service.UnService;
 import eu.michalszyba.adrwaybill.service.WaybillService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +21,13 @@ public class WaybillController {
     private final CompanyService companyService;
     private final CustomerService customerService;
     private final WaybillService waybillService;
+    private final UnService unService;
 
-    public WaybillController(CompanyService companyService, CustomerService customerService, WaybillService waybillService) {
+    public WaybillController(CompanyService companyService, CustomerService customerService, WaybillService waybillService, UnService unService) {
         this.companyService = companyService;
         this.customerService = customerService;
         this.waybillService = waybillService;
+        this.unService = unService;
     }
 
     @ModelAttribute("customers")
@@ -39,6 +43,11 @@ public class WaybillController {
     @ModelAttribute("waybills")
     public List<Waybill> populateWaybill() {
         return waybillService.getAllWaybill();
+    }
+
+    @ModelAttribute("uns")
+    public List<Un> populateUn() {
+        return unService.getAllUn();
     }
 
     @GetMapping("/list")
@@ -61,7 +70,7 @@ public class WaybillController {
     @PostMapping(value = "/add", params = {"saveForm"})
     public String postAddWaybill(@ModelAttribute Waybill waybill) {
         waybillService.save(waybill);
-        return "redirect:/home";
+        return "redirect:/waybill/list";
     }
 
     @GetMapping("/delete/{id}")

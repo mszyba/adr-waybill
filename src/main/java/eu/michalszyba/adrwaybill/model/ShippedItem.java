@@ -15,12 +15,13 @@ public class ShippedItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // TODO: in the future split by UnBaseEntity
     private Long unId;
     private String unNumber;
     private String unNameAndDescription;
     private String unClass;
     private String unPackingGroup;
-    private String unLabel;
+    private String unLabels;
 
     private Long packagingId;
     private String packagingCode;
