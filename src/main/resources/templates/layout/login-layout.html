@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="layout(titleContent, subtitle, content)">
+
+<head th:replace="fragments/base :: baseHeader(~{::link})">
+  <title>Company List</title>
+  <link rel="stylesheet">
+</head>
+
+<body class="bg-gradient">
+
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+
+        <!--CONTENT-->
+        <section th:replace="${content}">
+          <p>Ta część będzie zastąpiona przez section id content z danego pliku</p>
+        </section>
+
+    </main>
+  </div>
+
+  <!--Footer-->
+  <div id="layoutAuthentication_footer">
+    <footer th:replace="fragments/footer :: footer"></footer>
+  </div>
+</div>
+
+<script th:replace="fragments/base :: script"></script>
+
+</body>
+</html>
