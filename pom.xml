@@ -108,8 +108,8 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-mysql</artifactId>
+            <version>8.5.5</version>
         </dependency>
-
     </dependencies>
 
     <build>
