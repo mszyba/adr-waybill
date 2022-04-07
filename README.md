@@ -17,6 +17,7 @@ Project is created with:
 * Thymeleaf
 * MSQL
 * Docker
+* Flyway
 
 ## How to check
 You can check application here
