@@ -1,5 +1,6 @@
 package eu.michalszyba.adrwaybill.service;
 
+import eu.michalszyba.adrwaybill.exception.UserAlreadyExistException;
 import eu.michalszyba.adrwaybill.model.Role;
 import eu.michalszyba.adrwaybill.model.User;
 import eu.michalszyba.adrwaybill.repository.RoleRepository;
@@ -27,7 +28,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void saveUser(User user) {
+    public void registerNewUserAccount(User user) {
+        if (emailExist(user.getEmail())) {
+            throw new UserAlreadyExistException("There is an account with that email address: "
+            + user.getEmail());
+        }
+
         // set default role
         Role userRole = roleRepository.findRoleByRole(DEFAULT_ROLE);
         user.getRoles().add(userRole);
@@ -41,5 +47,9 @@ public class UserService {
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    private boolean emailExist(String email) {
+        return userRepository.findByEmail(email) != null;
     }
 }

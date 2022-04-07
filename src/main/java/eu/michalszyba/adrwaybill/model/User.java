@@ -21,16 +21,20 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @Email
     private String email;
 
     @Column(nullable = false)
+    @Size(min = 4, max = 20)
     private String password;
 
-    private boolean enabled = true;
-
+    @Size(min = 2, max = 20)
     private String firstName;
 
+    @Size(min = 2, max = 20)
     private String lastName;
+
+    private boolean enabled = true;
 
     private boolean isSuperAdmin = false;
 

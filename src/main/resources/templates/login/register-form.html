@@ -12,48 +12,58 @@
           <div class="card shadow-lg border-0 rounded-lg mt-5">
             <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
             <div class="card-body">
-              <form th:action="@{/register}" th:object="${user}" method="post">
-                <div class="row mb-3">
+              <form th:action="@{/register}" th:object="${user}" method="post" class="needs-validation" novalidate>
+                <div class="row gx-3">
+<!--                <div class="row mb-3">-->
                   <div class="col-md-6">
-                    <div class="form-floating mb-3 mb-md-0">
+                    <div class="mb-3">
+<!--                    <div class="form-floating mb-3 mb-md-0">-->
                       <input type="hidden" th:field="*{id}" th:value="*{id}">
-                      <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name"
+
+
+                      <label class="small mb-1" for="inputFirstName">First name</label>
+                      <input class="form-control" id="inputFirstName" th:errorclass="is-invalid" type="text" placeholder="Enter your first name"
                           th:field="*{firstName}" required />
-<!--                      <div class="invalid-feedback" th:if="${#fields.hasErrors('inputFirstName')}" th:errors="*{firstName}"></div>-->
-                      <label for="inputFirstName">First name</label>
+                      <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <div class="form-floating">
-                      <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name"
+                    <div class="mb-3">
+<!--                    <div class="form-floating">-->
+                      <label class="small mb-1" for="inputLastName">Last name</label>
+                      <input class="form-control" id="inputLastName" th:errorclass="is-invalid" type="text" placeholder="Enter your last name"
                              th:field="*{lastName}" />
-                      <label for="inputLastName">Last name</label>
+                      <div class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
                     </div>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-md-6">
-                    <div class="form-floating mb-3 mb-md-0">
-                      <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com"
+                    <div class="mb-3">
+                      <label class="small mb-1" for="inputEmail">Email address</label>
+                      <input class="form-control" id="inputEmail" th:errorclass="is-invalid" type="email" placeholder="name@example.com"
                              th:field="*{email}" />
-                      <label for="inputEmail">Email address</label>
+                      <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <div class="form-floating mb-3 mb-md-0">
-                      <input class="form-control" id="inputPassword" type="password" placeholder="Create a password"
+                    <div class="mb-3">
+                      <label class="small mb-1" for="inputPassword">Password</label>
+                      <input class="form-control" id="inputPassword" th:errorclass="is-invalid" type="password" placeholder="Create a password"
                              th:field="*{password}" />
-                      <label for="inputPassword">Password</label>
+                      <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                     </div>
                   </div>
+                  <div th:if="${emailExist} != null" th:text="${emailExist}" class="alert alert-danger" role="alert">dsdsdsdsd</div>
+
                 </div>
-                <div class="form-floating mb-3">
+                <div class="mb-3">
+                  <label for="inputCompany" class="form-label">Company</label>
                   <select th:field="*{company}" class="form-select" id="inputCompany" required>
                     <th:block th:each="c : ${companies}">
                       <option th:text="${c.companyName}" th:value="${c.id}"></option>
                     </th:block>
                   </select>
-                  <label for="inputCompany" class="form-label">Company</label>
                 </div>
                 <div class="mt-4 mb-0">
                   <div class="d-grid"><button class="btn btn-primary btn-block" type="submit">Create Account</button></div>
