@@ -18,6 +18,13 @@ Project is created with:
 * MSQL
 * Docker
 
+## How to check
+You can check application here
+
+**http://adr-waybill.michalszyba.eu/**
+
+I used own VPS Ubuntu, nginx and Docker to run app.
+
 ## How to run
 Clone repository
 ```
