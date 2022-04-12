@@ -13,22 +13,22 @@
     <div class="card mb-4">
       <div class="card-header">ADR Waybill Details</div>
       <div class="card-body">
-        <form th:action="@{/waybill/add}" th:object="${waybill}" method="post">
+        <form th:action="@{/waybill/add}" th:object="${waybill}" method="post" id="formAddWaybill">
           <!-- Form Row-->
           <div class="row gx-3 mb-3">
             <input type="hidden" th:field="*{id}" th:value="*{id}">
             <!-- Form Group (Customer name)-->
             <div class="col-md-6">
-              <label class="small mb-1" for="company">Company</label>
-              <select th:field="*{companyId}" class="form-select" id="company" required>
+              <label class="small mb-1">Company</label>
+              <select th:field="*{companyId}" class="form-select" id="company">
                 <th:block th:each="company : ${companies}">
                   <option th:text="${company.companyName}" th:value="${company.id}"></option>
                 </th:block>
               </select>
             </div>
             <div class="col-md-6">
-              <label class="small mb-1" for="customer">Customer</label>
-              <select th:field="*{customerId}" class="form-select" id="customer" required>
+              <label class="small mb-1">Customer</label>
+              <select th:field="*{customerId}" class="form-select" id="customer">
                 <th:block th:each="customer : ${customers}">
                   <option th:text="${customer.customerName}" th:value="${customer.id}"></option>
                 </th:block>
@@ -63,48 +63,90 @@
             </div>
           </div>
 
-          <!--Form Row-->
-          <div class="row gx-3 mb-3">
-            <div class="form-control" th:each="item, itemStat : *{shippedItems}">
-            <!-- Form Group (Shipped Item)-->
-              <!--Row-->
-              <div class="row gx-3 mb-3">
-                <div class="col-md-6">
-                  <label class="small mb-1" for="unNumber">UN Number</label>
-                  <select th:field="*{shippedItems[__${itemStat.index}__].unId}" class="form-select" id="unNumber">
-                    <option th:each="un : ${uns}"
-                            th:value="${un.id}"
-                            th:text="${un.unNumber} + ' ' + ${un.unNameAndDescription} + ', ' + ${un.unLabels} + ', ' + ${un.unPackingGroup}">
-                      Un number, descriptions, label, packaging group
-                    </option>
-                  </select>
-<!--                  <input th:field="*{shippedItems[__${itemStat.index}__].unNumber}" class="form-control" id="unNumber" type="text" placeholder="" value="">-->
-                </div>
-<!--                <div class="col-md-6">-->
-<!--                  <label class="small mb-1" for="unClass">UN Class</label>-->
-<!--                  <input th:field="*{shippedItems[__${itemStat.index}__].unClass}" class="form-control" id="unClass" type="text" placeholder="" value="">-->
-<!--                </div>-->
-              </div>
-              <!--Row-->
-              <div class="row gx-3 mb-3">
-                <div class="col-md-6">
-                <label class="small mb-1" for="quantity">Quantity</label>
-                <input th:field="*{shippedItems[__${itemStat.index}__].quantity}" class="form-control" id="quantity" type="text" placeholder="" value="">
-                </div>
-                <div class="col-md-6">
-                  <label class="small mb-1" for="volume">Volume</label>
-                  <input th:field="*{shippedItems[__${itemStat.index}__].volume}" class="form-control" id="volume" type="text" placeholder="" value="">
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!--Add new Shipped Item button-->
-          <button class="btn btn-warning" type="submit" name="addShippedItem">Add new Item</button>
+          <!-- Button trigger modal -->
+          <a class="btn btn-primary"
+             data-bs-toggle="modal"
+             data-bs-target="#modal-warning"
+             th:attr="data-bs-target='#modal-warning'">
+            Add new Shipped Item</a>
 
           <!--Submit button-->
           <button class="btn btn-dark" type="submit" name="saveForm">Save</button>
         </form>
+
+        <div>
+          <table th:if="${filledShippedItem.size() != 0}" class="table table-hover">
+            <thead>
+            <tr>
+              <th>UN</th>
+              <th>Qty</th>
+              <th>ccc</th>
+              <th>Un Labels</th>
+              <th>Un Packa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${filledShippedItem}">
+              <td th:text="${item.unNumber}"></td>
+              <td th:text="${item.quantity}"></td>
+              <td th:text="${item.volume}"></td>
+              <td th:text="${item.unLabels}"></td>
+              <td th:text="${item.unPackingGroup}"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" th:id="modal-warning" tabindex="-1" aria-labelledby="modalWarning" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Add new line</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row gx-3 mb-3">
+                  <form th:action="@{/waybill/addShippedItem}" th:object="${shippedItem}" method="post" id="formAddShippedItem">
+                    <div class="form-control">
+                      <!-- Form Group (Shipped Item)-->
+                      <!--Row-->
+                      <div class="row gx-3 mb-3">
+                        <div class="col-md-6">
+                          <label class="small mb-1">UN Number</label>
+                          <select th:field="*{unId}" class="form-select" id="unNumber">
+                            <option th:each="un : ${uns}"
+                                    th:value="${un.id}"
+                                    th:text="${un.unNumber} + ' ' + ${un.unNameAndDescription} + ', ' + ${un.unLabels} + ', ' + ${un.unPackingGroup}">
+                              Un number, descriptions, label, packaging group
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <!--Row-->
+                      <div class="row gx-3 mb-3">
+                        <div class="col-md-6">
+                          <label class="small mb-1" for="quantity">Quantity</label>
+                          <input th:field="*{quantity}" class="form-control" id="quantity" type="text" placeholder="" value="">
+                        </div>
+                        <div class="col-md-6">
+                          <label class="small mb-1" for="volume">Volume</label>
+                          <input th:field="*{volume}" class="form-control" id="volume" type="text" placeholder="" value="">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" name="addShippedItem" form="formAddShippedItem">Add NEW ITEM</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>

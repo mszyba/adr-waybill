@@ -1,15 +1,8 @@
 package eu.michalszyba.adrwaybill.controller;
 
 import com.lowagie.text.DocumentException;
-import eu.michalszyba.adrwaybill.model.Company;
-import eu.michalszyba.adrwaybill.model.Customer;
-import eu.michalszyba.adrwaybill.model.Un;
-import eu.michalszyba.adrwaybill.model.Waybill;
-import eu.michalszyba.adrwaybill.service.CompanyService;
-import eu.michalszyba.adrwaybill.service.CustomerService;
-import eu.michalszyba.adrwaybill.service.UnService;
-import eu.michalszyba.adrwaybill.service.WaybillService;
-import eu.michalszyba.adrwaybill.util.PDFGenerator;
+import eu.michalszyba.adrwaybill.model.*;
+import eu.michalszyba.adrwaybill.service.*;
 import eu.michalszyba.adrwaybill.util.PDFGeneratorWaybill;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,12 +23,14 @@ public class WaybillController {
     private final CustomerService customerService;
     private final WaybillService waybillService;
     private final UnService unService;
+    private final ShippedItemService shippedItemService;
 
-    public WaybillController(CompanyService companyService, CustomerService customerService, WaybillService waybillService, UnService unService) {
+    public WaybillController(CompanyService companyService, CustomerService customerService, WaybillService waybillService, UnService unService, ShippedItemService shippedItemService) {
         this.companyService = companyService;
         this.customerService = customerService;
         this.waybillService = waybillService;
         this.unService = unService;
+        this.shippedItemService = shippedItemService;
     }
 
     @ModelAttribute("customers")
@@ -66,18 +61,32 @@ public class WaybillController {
     @GetMapping("/add")
     public String getAddWaybillForm(Model model) {
         model.addAttribute("waybill", new Waybill());
+        model.addAttribute("shippedItem", new ShippedItem());
+        model.addAttribute("filledShippedItem", shippedItemService.getShippedItems());
+        System.out.println("++++++++++++");
         return "waybill/waybill-details";
     }
 
-    @RequestMapping(value = "/add", params = {"addShippedItem"})
-    public String addShippedItem(Waybill waybill) {
-        waybillService.addShippedItem(waybill);
-        return "/waybill/waybill-details";
+
+    @PostMapping(value = "/addShippedItem", params = {"addShippedItem"})
+    public String addShippedItem(ShippedItem shippedItem) {
+        shippedItemService.addToList(shippedItem);
+        return "redirect:/waybill/add";
     }
 
     @PostMapping(value = "/add", params = {"saveForm"})
     public String postAddWaybill(@ModelAttribute Waybill waybill) {
+        // get List of ShippedItems from form
+        List<ShippedItem> shippedItems = shippedItemService.getShippedItems();
+
+        // set List of shippedItems to Waybill
+        waybill.setShippedItems(shippedItemService.getShippedItems());
+
+        // save Waybill form
         waybillService.save(waybill);
+
+        // clear List of Shipped Items to clear form
+        shippedItems.clear();
         return "redirect:/waybill/list";
     }
 
