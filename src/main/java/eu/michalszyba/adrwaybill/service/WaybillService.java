@@ -4,10 +4,12 @@ import eu.michalszyba.adrwaybill.model.*;
 import eu.michalszyba.adrwaybill.repository.CompanyRepository;
 import eu.michalszyba.adrwaybill.repository.CustomerRepository;
 import eu.michalszyba.adrwaybill.repository.WaybillRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class WaybillService {
 
@@ -34,15 +36,11 @@ public class WaybillService {
     public void save(Waybill waybill) {
 
         /*
-        * first start with 0 point for each class
+        * first start with 0 points
         * */
         var ref = new Object() {
-            Integer pointsClass1 = 0;
-            Integer pointsClass2 = 0;
-            Integer pointsClass3 = 0;
-            Integer pointsAll = 0;
+            int pointsAll = 0;
         };
-
 
         /*
         * check each shippedItems and add fixed data from Un
@@ -50,50 +48,17 @@ public class WaybillService {
         * */
         waybill.getShippedItems()
                 .forEach(shippedItem -> {
+                    // get points for each Shipped Items
+                    int shippedItemPoints = shippedItem.getPoints();
 
-                    Un unById = unService.getUnById(shippedItem.getUnId());
+                    // add to all waybill points
+                    ref.pointsAll += shippedItemPoints;
 
-                    String unPackingGroup = unById.getUnPackingGroup();
-                    Integer quantity = shippedItem.getQuantity();
-
-                    /*
-                     * check each Packing Group and add for each result of points
-                     * */
-                    switch (unPackingGroup) {
-                        case "I":
-                            ref.pointsClass1 += 6 * quantity;
-                            ref.pointsAll += ref.pointsClass1;
-                            break;
-                        case "II":
-                            ref.pointsClass2 += 3 * quantity;
-                            ref.pointsAll += ref.pointsClass2;
-                            break;
-                        case "III":
-                            ref.pointsClass3 += quantity;
-                            ref.pointsAll += ref.pointsClass3;
-                            break;
-                    }
-
-                    /*
-                    * set points
-                    * */
-                    waybill.setPointClass1(ref.pointsClass1);
-                    waybill.setPointClass2(ref.pointsClass2);
-                    waybill.setPointClass3(ref.pointsClass3);
+                    // and save to waybill
                     waybill.setPoints(ref.pointsAll);
 
-
                     /*
-                    * set fixed un variables
-                    * */
-                    shippedItem.setUnId(unById.getId());
-                    shippedItem.setUnNameAndDescription(unById.getUnNameAndDescription());
-                    shippedItem.setUnNumber(unById.getUnNumber());
-                    shippedItem.setUnLabels(unById.getUnLabels());
-                    shippedItem.setUnPackingGroup(unById.getUnPackingGroup());
-
-                    /*
-                    * save all to shipped_items
+                    * save Shipped Item to Waybill
                     * */
                     shippedItem.setWaybill(waybill);
                 });

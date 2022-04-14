@@ -34,4 +34,23 @@ public class ShippedItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "waybill_id")
     private Waybill waybill;
+
+    @Override
+    public String toString() {
+        return "ShippedItem{" +
+                "id=" + id +
+                ", unId=" + unId +
+                ", unNumber='" + unNumber + '\'' +
+                ", unNameAndDescription='" + unNameAndDescription + '\'' +
+                ", unClass='" + unClass + '\'' +
+                ", unPackingGroup='" + unPackingGroup + '\'' +
+                ", unLabels='" + unLabels + '\'' +
+                ", packagingId=" + packagingId +
+                ", packagingCode='" + packagingCode + '\'' +
+                ", packagingDescription='" + packagingDescription + '\'' +
+                ", quantity=" + quantity +
+                ", volume=" + volume +
+                ", points=" + points +
+                '}';
+    }
 }
