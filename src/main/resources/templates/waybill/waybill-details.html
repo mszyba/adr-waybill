@@ -12,7 +12,38 @@
   <section id="content">
     <div class="card mb-4">
       <div class="card-header">ADR Waybill Details</div>
+
       <div class="card-body">
+        <div>
+          <table th:if="${filledShippedItem.size() != 0}" class="table table-hover">
+            <thead>
+            <tr>
+              <th>UN</th>
+              <th>Qty</th>
+              <th>ccc</th>
+              <th>Un Labels</th>
+              <th>Un Packa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${filledShippedItem}">
+              <td th:text="${item.unNumber}"></td>
+              <td th:text="${item.quantity}"></td>
+              <td th:text="${item.volume}"></td>
+              <td th:text="${item.unLabels}"></td>
+              <td th:text="${item.unPackingGroup}"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!--Add new Shipped Item button-->
+        <!-- Button trigger modal -->
+        <a class="btn btn-primary"
+           data-bs-toggle="modal"
+           data-bs-target="#modal-warning"
+           th:attr="data-bs-target='#modal-warning'">
+          Add new Shipped Item</a>
         <form th:action="@{/waybill/add}" th:object="${waybill}" method="post" id="formAddWaybill">
           <!-- Form Row-->
           <div class="row gx-3 mb-3">
@@ -63,40 +94,11 @@
             </div>
           </div>
 
-          <!--Add new Shipped Item button-->
-          <!-- Button trigger modal -->
-          <a class="btn btn-primary"
-             data-bs-toggle="modal"
-             data-bs-target="#modal-warning"
-             th:attr="data-bs-target='#modal-warning'">
-            Add new Shipped Item</a>
 
           <!--Submit button-->
           <button class="btn btn-dark" type="submit" name="saveForm">Save</button>
         </form>
 
-        <div>
-          <table th:if="${filledShippedItem.size() != 0}" class="table table-hover">
-            <thead>
-            <tr>
-              <th>UN</th>
-              <th>Qty</th>
-              <th>ccc</th>
-              <th>Un Labels</th>
-              <th>Un Packa</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item : ${filledShippedItem}">
-              <td th:text="${item.unNumber}"></td>
-              <td th:text="${item.quantity}"></td>
-              <td th:text="${item.volume}"></td>
-              <td th:text="${item.unLabels}"></td>
-              <td th:text="${item.unPackingGroup}"></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
 
 
         <!-- Modal -->
