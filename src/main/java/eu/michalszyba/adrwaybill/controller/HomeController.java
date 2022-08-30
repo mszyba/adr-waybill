@@ -22,7 +22,6 @@ public class HomeController {
         return customerService.getAllCustomers();
     }
 
-
     @GetMapping(path = {"/", "/home"})
     public String home() {
         return "home";

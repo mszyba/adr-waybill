@@ -1,91 +1,39 @@
-<!DOCTYPE HTML>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org"
-    th:replace="layout/base-layout :: layout(~{ :: #titleContent}, ~{}, ~{ :: #content})">
+<!doctype html>
+<html lang="pl" th:insert="layout/base-layout :: layout(~{ :: #titleContent}, ~{}, ~{ :: #content})"
+      xmlns:th="http://www.thymeleaf.org">
 
-<body>
-  <h1 id="titleContent">Dashboard</h1>
+<!--<body>-->
 
-  <section id="content">
-    <div class="container-fluid px-4">
-      <div class="card mb-4">
-        <div class="card-body">
-          <!--ROW-->
-          <div class="row">
-            <div class="col-xl-4 col-md-6">
-              <div class="card bg-primary text-white mb-4">
-                <div class="card-body">Customer</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                  <a class="small text-white stretched-link" th:href="@{/customer/list}">List of customers Details</a>
-                  <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-              <div class="card bg-success text-white mb-4">
-                <div class="card-body">Company</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                  <a class="small text-white stretched-link" th:href="@{/admin/company/list}">List of companies</a>
-                  <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-              <div class="card bg-success text-white mb-4">
-                <div class="card-body">ADR Wybills</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                  <a class="small text-white stretched-link" th:href="@{/waybill/list}">List of waybills</a>
-                  <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-<!--              <div class="card bg-danger text-white mb-4">-->
-<!--                <div class="card-body">Danger Card</div>-->
-<!--                <div class="card-footer d-flex align-items-center justify-content-between">-->
-<!--                  <a class="small text-white stretched-link" th:href="@{/customer/list}">View Details</a>-->
-<!--                  <div class="small text-white"><i class="fas fa-angle-right"></i></div>-->
-<!--                </div>-->
-<!--              </div>-->
-            </div>
-          </div>
+<div id="titleContent">
+  <h1>Dashboard</h1>
+</div>
 
-          <!--CONTENT-->
-          <div class="card mb-4">
-        <div class="card-header">
-          <i class="fas fa-table me-1"></i>
-          Lista klientów
-        </div>
-        <div class="card-body">
-          <table id="datatablesSimple">
-            <thead>
-            <tr>
-              <th>Id</th>
-              <th>Customer Name</th>
-              <th>Address</th>
-              <th>PostCode</th>
-              <th>City</th>
-              <th>Country</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="customer : ${customers}">
-              <td th:text="${customer.id}"></td>
-              <td th:text="${customer.customerName}"></td>
-              <td th:text="${customer.address}"></td>
-              <td th:text="${customer.postcode}"></td>
-              <td th:text="${customer.city}"></td>
-              <td th:text="${customer.country}"></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+<section id="content">
+  <h2>Section title</h2>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Customer Name</th>
+        <th>Address</th>
+        <th>PostCode</th>
+        <th>City</th>
+        <th>Country</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="customer : ${customers}">
+        <td th:text="${customer.id}"></td>
+        <td th:text="${customer.customerName}"></td>
+        <td th:text="${customer.address}"></td>
+        <td th:text="${customer.postcode}"></td>
+        <td th:text="${customer.city}"></td>
+        <td th:text="${customer.country}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 
-
-      </div>
-    </div>
-  </section>
-
-</body>
 </html>

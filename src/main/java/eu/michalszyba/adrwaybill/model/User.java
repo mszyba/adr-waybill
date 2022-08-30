@@ -25,7 +25,6 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    @Size(min = 4, max = 20)
     private String password;
 
     @Size(min = 2, max = 20)

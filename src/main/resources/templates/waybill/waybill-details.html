@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org"
-    th:replace="layout/base-layout :: layout(~{ :: #titleContent}, ~{}, ~{ :: #content})">
+    th:insert="layout/base-layout :: layout(~{ :: #titleContent}, ~{}, ~{ :: #content})">
 
 <body>
 <!--  <h1 id="titleContent">Dodaj klienta</h1>-->
@@ -57,13 +57,28 @@
                 </th:block>
               </select>
             </div>
+
+
+<!--            <div class="col-md-6">-->
+<!--              <label class="small mb-1">Customer</label>-->
+<!--              <select th:field="*{customerId}" class="form-select" id="customer">-->
+<!--                <th:block th:each="customer : ${customers}">-->
+<!--                  <option th:text="${customer.customerName}" th:value="${customer.id}"></option>-->
+<!--                </th:block>-->
+<!--              </select>-->
+<!--            </div>-->
+
+
             <div class="col-md-6">
-              <label class="small mb-1">Customer</label>
-              <select th:field="*{customerId}" class="form-select" id="customer">
-                <th:block th:each="customer : ${customers}">
-                  <option th:text="${customer.customerName}" th:value="${customer.id}"></option>
-                </th:block>
-              </select>
+              <label class="small mb-1" for="customer2">Customer</label>
+              <input id="customer2" class="form-control" th:field="*{customerName}" type="text">
+<!--              <select th:field="*{customerId}" class="form-control select2-selection&#45;&#45;single" id="customer">-->
+<!--                <option value="">Search something</option>-->
+
+<!--&lt;!&ndash;                <th:block th:each="customer : ${customers}">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <option th:text="${customer.customerName}" th:value="${customer.id}"></option>&ndash;&gt;-->
+<!--&lt;!&ndash;                </th:block>&ndash;&gt;-->
+<!--              </select>-->
             </div>
 
 
@@ -152,6 +167,25 @@
       </div>
     </div>
   </section>
+
+
+<script>
+    $("#customer2").autocomplete({
+        theme: "bootstrap4",
+        ajax: {
+            url: '/states',
+            dataType: 'json',
+            delay: 250,
+            processResults: function (response) {
+                console.log(response);
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+</script>
 
 </body>
 </html>

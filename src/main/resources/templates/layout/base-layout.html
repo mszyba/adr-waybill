@@ -3,40 +3,32 @@
       th:fragment="layout(titleContent, subtitle, content)">
 
 <head th:replace="fragments/base :: baseHeader(~{::link})">
-  <title>Company List</title>
+  <title>Company Name</title>
   <link rel="stylesheet">
 </head>
 
-<body class="sb-nav-fixed">
+<body>
+<!--Header-->
+<header th:replace="fragments/navbar :: header"></header>
 
-<!--Navbar-->
-<nav th:replace="fragments/navbar :: navbar"></nav>
-
-<div id="layoutSidenav">
+<div class="container-fluid">
+  <div class="row">
 
   <!--Sidebar-->
-  <div th:replace="fragments/sidebar :: sidebar" id="layoutSidenav_nav"></div>
+  <div th:replace="fragments/sidebar :: sidebar"></div>
 
-  <div id="layoutSidenav_content">
-    <main>
-      <div class="container-fluid px-4">
-
-        <!--SECTION TITLE-->
-        <h1 th:replace="${titleContent}" class="mt-4">Title Content</h1>
-          <ol class="breadcrumb mb-4">
-            <!--SUBTITLE-->
-            <li th:replace="${subtitle}" class="breadcrumb-item active">Subtitle Content</li>
-          </ol>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <!--SECTION TITLE-->
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 th:replace="${titleContent}" class="h2">Title Content</h1>
+      </div>
 
         <!--CONTENT-->
         <section th:replace="${content}">
           <p>Ta część będzie zastąpiona przez section id content z danego pliku</p>
         </section>
-      </div>
     </main>
 
-    <!--Footer-->
-    <footer th:replace="fragments/footer :: footer"></footer>
   </div>
 </div>
 

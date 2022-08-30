@@ -6,34 +6,54 @@
 </head>
 <body>
 
-<nav th:fragment="navbar" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-  <!-- Navbar Brand-->
-  <a class="navbar-brand ps-3" href="index.html">ADR Waybill</a>
-  <!-- Sidebar Toggle-->
-  <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-  <!-- Navbar Search-->
-  <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-<!--    <div class="input-group">-->
-<!--      <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />-->
-<!--      <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>-->
-<!--    </div>-->
-  </form>
-  <!-- Navbar-->
-  <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-<!--        <li><a class="dropdown-item" href="#!">Settings</a></li>-->
-<!--        <li><a class="dropdown-item" href="#!">Activity Log</a></li>-->
-        <li><hr class="dropdown-divider" /></li>
-        <li>
-          <form th:action="@{/logout}" method="post" >
-            <input class="dropdown-item" type="submit" value="Log me out" />
-          </form>
-      </ul>
-    </li>
-  </ul>
-</nav>
+
+<header th:fragment="header" class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Company name</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+<!--    <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">-->
+  <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      <a class="nav-link px-3" href="#">Sign out</a>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+
+
+<!--<nav th:fragment="navbar" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">-->
+<!--  &lt;!&ndash; Navbar Brand&ndash;&gt;-->
+<!--  <a class="navbar-brand ps-3" href="index.html">ADR Waybill</a>-->
+<!--  &lt;!&ndash; Sidebar Toggle&ndash;&gt;-->
+<!--  <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>-->
+<!--  &lt;!&ndash; Navbar Search&ndash;&gt;-->
+<!--  <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">-->
+<!--&lt;!&ndash;    <div class="input-group">&ndash;&gt;-->
+<!--&lt;!&ndash;      <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />&ndash;&gt;-->
+<!--&lt;!&ndash;      <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--  </form>-->
+<!--  &lt;!&ndash; Navbar&ndash;&gt;-->
+<!--  <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">-->
+<!--    <li class="nav-item dropdown">-->
+<!--      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>-->
+<!--      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">-->
+<!--&lt;!&ndash;        <li><a class="dropdown-item" href="#!">Settings</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;        <li><a class="dropdown-item" href="#!">Activity Log</a></li>&ndash;&gt;-->
+<!--        <li><hr class="dropdown-divider" /></li>-->
+<!--        <li>-->
+<!--          <form th:action="@{/logout}" method="post" >-->
+<!--            <input class="dropdown-item" type="submit" value="Log me out" />-->
+<!--          </form>-->
+<!--      </ul>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</nav>-->
 
 </body>
 </html>

@@ -5,6 +5,8 @@ import eu.michalszyba.adrwaybill.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerService {
@@ -30,5 +32,15 @@ public class CustomerService {
 
     public void deleteById(Long id) {
         customerRepository.deleteById(id);
+    }
+
+    public List<Customer> getAutocomplete(String term) {
+
+        return customerRepository.findAll().stream().filter(
+                s -> s
+                        .getCustomerName()
+                        .toLowerCase(Locale.ROOT)
+                        .contains(term.toLowerCase(Locale.ROOT))).collect(Collectors.toList());
+
     }
 }

@@ -3,29 +3,17 @@
       th:fragment="layout(titleContent, subtitle, content)">
 
 <head th:replace="fragments/base :: baseHeader(~{::link})">
-  <title>Company List</title>
-  <link rel="stylesheet">
+  <title>Company Name</title>
+<!--  <link rel="stylesheet">-->
+  <!-- Custom styles for this template -->
+  <link th:href="@{/css/signin.css}" rel="stylesheet">
+
 </head>
 
-<body class="bg-gradient">
-
-<div id="layoutAuthentication">
-  <div id="layoutAuthentication_content">
-    <main>
+<body class="text-center">
 
         <!--CONTENT-->
-        <section th:replace="${content}">
-          <p>Ta część będzie zastąpiona przez section id content z danego pliku</p>
-        </section>
-
-    </main>
-  </div>
-
-  <!--Footer-->
-  <div id="layoutAuthentication_footer">
-    <footer th:replace="fragments/footer :: footer"></footer>
-  </div>
-</div>
+        <main th:replace="${content}"></main>
 
 <script th:replace="fragments/base :: script"></script>
 
