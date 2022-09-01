@@ -1,11 +1,16 @@
 package eu.michalszyba.adrwaybill.controller;
 
 import eu.michalszyba.adrwaybill.model.Customer;
+import eu.michalszyba.adrwaybill.model.User;
 import eu.michalszyba.adrwaybill.service.CustomerService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -19,8 +24,8 @@ public class CustomerController {
     }
 
     @ModelAttribute("customers")
-    public List<Customer> populateCustomers() {
-        return customerService.getAllCustomers();
+    public List<Customer> populateCustomers(Authentication authentication) {
+        return customerService.getCustomersOfCompanyCurrentUser(authentication);
     }
 
     @GetMapping("/list")

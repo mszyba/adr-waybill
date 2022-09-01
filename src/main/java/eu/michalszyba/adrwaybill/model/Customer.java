@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -24,4 +26,11 @@ public class Customer {
     private String email;
     private String phone;
     private boolean isActive = true;
+
+    @ManyToMany
+    @JoinTable(
+            name = "customers_companies",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "company_id"))
+    private Set<Company> companies = new HashSet<>();
 }

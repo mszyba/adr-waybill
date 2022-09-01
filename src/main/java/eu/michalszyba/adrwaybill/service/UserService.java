@@ -5,6 +5,8 @@ import eu.michalszyba.adrwaybill.model.Role;
 import eu.michalszyba.adrwaybill.model.User;
 import eu.michalszyba.adrwaybill.repository.RoleRepository;
 import eu.michalszyba.adrwaybill.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +49,16 @@ public class UserService {
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public User getCurrentUserCompany() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            String username = ((UserDetails) principal).getUsername();
+            return userRepository.findByEmail(username);
+        } else {
+            return null;
+        }
     }
 
     private boolean emailExist(String email) {

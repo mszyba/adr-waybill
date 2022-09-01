@@ -6,7 +6,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "companies")
@@ -29,4 +31,7 @@ public class Company {
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<User> users = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "companies")
+    private Set<Customer> customers = new HashSet<>();
 }

@@ -43,4 +43,14 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", enabled=" + enabled +
+                ", isSuperAdmin=" + isSuperAdmin +
+                '}';
+    }
 }
