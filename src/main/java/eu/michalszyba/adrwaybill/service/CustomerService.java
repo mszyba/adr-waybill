@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,7 @@ public class CustomerService {
     }
 
     public void save(Customer customer) {
-        // check sig-in user and company of user
+        // check sing-in user and company of user
         User currentUser = userService.getCurrentUser();
         Company currentUserCompany = currentUser.getCompany();
         customer.getCompanies().add(currentUserCompany);
@@ -72,8 +73,11 @@ public class CustomerService {
 
     public List<Customer> getCustomersOfCompanyCurrentUser() {
         User user = userService.getCurrentUser();
-        Optional<Company> optionalCompany = companyRepository.findByUsersEquals(user);
+        Company company = companyRepository
+                .findByUsersEquals(user)
+                .orElseThrow(
+                        () -> new NoSuchElementException("We can't find Company for username: " + user.getEmail()));
 
-        return customerRepository.findAllByCompaniesEquals(optionalCompany.get());
+        return customerRepository.findAllByCompaniesEquals(company);
     }
 }

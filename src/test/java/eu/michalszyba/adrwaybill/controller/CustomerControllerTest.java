@@ -67,7 +67,7 @@ class CustomerControllerTest {
         customer.setId(1L);
         customer.setCustomerName("customer Name");
 
-        when(customerService.getById(customer.getId())).thenReturn(customer);
+        when(customerService.getByIdForCurrentUser(customer.getId())).thenReturn(customer);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/customer/edit/1"))
                 .andExpect(status().isOk());

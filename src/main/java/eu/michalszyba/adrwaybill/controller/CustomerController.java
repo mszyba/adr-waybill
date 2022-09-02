@@ -50,17 +50,19 @@ public class CustomerController {
             model.addAttribute("customer", customerService.getByIdForCurrentUser(id));
             return "customer/customer-details";
         } catch (CustomerIsNotForCompanyException e) {
-            log.warn(e.getMessage());
+            log.warn(e.getMessage() + " to EDIT");
             return "redirect:/customer/list";
         }
     }
 
     @GetMapping("/delete/{id}")
     public String deleteCustomerById(@PathVariable Long id) {
-        if (customerService.getByIdForCurrentUser(id) == null) {
+        try {
+            Customer customer = customerService.getByIdForCurrentUser(id);
+            customerService.deleteById(customer.getId());
             return "redirect:/customer/list";
-        } else {
-            customerService.deleteById(id);
+        } catch (CustomerIsNotForCompanyException e) {
+            log.warn(e.getMessage() + " to DELETE");
             return "redirect:/customer/list";
         }
     }

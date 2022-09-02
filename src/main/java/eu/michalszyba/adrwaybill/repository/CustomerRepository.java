@@ -10,10 +10,14 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
+
     List<Customer> findAllByCompaniesEquals(Company company);
 
     @Override
-    Optional<Customer> findById(Long aLong);
+    Optional<Customer> findById(Long id);
+
+    @Override
+    void deleteById(Long id);
 
     Optional<Customer> findByIdAndCompaniesEquals(Long id, Company company);
 }
