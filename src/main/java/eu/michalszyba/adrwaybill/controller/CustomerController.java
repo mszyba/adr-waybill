@@ -1,18 +1,16 @@
 package eu.michalszyba.adrwaybill.controller;
 
+import eu.michalszyba.adrwaybill.exception.CustomerIsNotForCompanyException;
 import eu.michalszyba.adrwaybill.model.Customer;
-import eu.michalszyba.adrwaybill.model.User;
 import eu.michalszyba.adrwaybill.service.CustomerService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
@@ -24,8 +22,8 @@ public class CustomerController {
     }
 
     @ModelAttribute("customers")
-    public List<Customer> populateCustomers(Authentication authentication) {
-        return customerService.getCustomersOfCompanyCurrentUser(authentication);
+    public List<Customer> populateCustomers() {
+        return customerService.getCustomersOfCompanyCurrentUser();
     }
 
     @GetMapping("/list")
@@ -48,17 +46,18 @@ public class CustomerController {
 
     @GetMapping("/edit/{id}")
     public String editCustomerById(@PathVariable Long id, Model model) {
-        if (customerService.getById(id) == null) {
-            return "redirect:/customer/list";
-        } else {
-            model.addAttribute("customer", customerService.getById(id));
+        try {
+            model.addAttribute("customer", customerService.getByIdForCurrentUser(id));
             return "customer/customer-details";
+        } catch (CustomerIsNotForCompanyException e) {
+            log.warn(e.getMessage());
+            return "redirect:/customer/list";
         }
     }
 
     @GetMapping("/delete/{id}")
     public String deleteCustomerById(@PathVariable Long id) {
-        if (customerService.getById(id) == null) {
+        if (customerService.getByIdForCurrentUser(id) == null) {
             return "redirect:/customer/list";
         } else {
             customerService.deleteById(id);

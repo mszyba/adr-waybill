@@ -64,7 +64,7 @@ public class WaybillService {
                 });
 
         Company companyById = companyService.getById(waybill.getCompanyId());
-        Customer customerById = customerService.getById(waybill.getCustomerId());
+        Customer customerById = customerService.getByIdForCurrentUser(waybill.getCustomerId());
 
         waybill.setCompanyAddress(companyById.getAddress());
         waybill.setCompanyCity(companyById.getCity());

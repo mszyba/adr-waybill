@@ -1,5 +1,6 @@
 package eu.michalszyba.adrwaybill.service;
 
+import eu.michalszyba.adrwaybill.exception.CustomerIsNotForCompanyException;
 import eu.michalszyba.adrwaybill.model.Company;
 import eu.michalszyba.adrwaybill.model.Customer;
 import eu.michalszyba.adrwaybill.model.User;
@@ -36,16 +37,19 @@ public class CustomerService {
     }
 
     public void save(Customer customer) {
-        User currentUser = userService.getCurrentUserCompany();
+        // check sig-in user and company of user
+        User currentUser = userService.getCurrentUser();
         Company currentUserCompany = currentUser.getCompany();
         customer.getCompanies().add(currentUserCompany);
 
         customerRepository.save(customer);
     }
 
-    public Customer getById(Long id) {
-        return customerRepository.findById(id)
-                .orElse(null);
+    public Customer getByIdForCurrentUser(Long id) {
+        Company companyForCurrentUser = userService.getCompanyForCurrentUser();
+        Optional<Customer> customer = customerRepository.findByIdAndCompaniesEquals(id, companyForCurrentUser);
+        return customer.orElseThrow(
+                () -> new CustomerIsNotForCompanyException("We can't find customer with id: " + id + " for " + companyForCurrentUser.getEmail()));
     }
 
     public void deleteById(Long id) {
@@ -66,9 +70,8 @@ public class CustomerService {
         return customerRepository.findAllByCompaniesEquals(company);
     }
 
-    public List<Customer> getCustomersOfCompanyCurrentUser(Authentication authentication) {
-        String userEmail = authentication.getName();
-        User user = userRepository.findByEmail(userEmail);
+    public List<Customer> getCustomersOfCompanyCurrentUser() {
+        User user = userService.getCurrentUser();
         Optional<Company> optionalCompany = companyRepository.findByUsersEquals(user);
 
         return customerRepository.findAllByCompaniesEquals(optionalCompany.get());
