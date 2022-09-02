@@ -13,6 +13,9 @@
           <tr>
             <th>Id</th>
             <th>Customer Name</th>
+            <th>VAT No.</th>
+            <th>E-mail</th>
+            <th>Phone</th>
             <th>Address</th>
             <th>PostCode</th>
             <th>City</th>
@@ -24,6 +27,9 @@
           <tr th:each="customer : ${customers}">
             <td th:text="${customer.id}"></td>
             <td th:text="${customer.customerName}"></td>
+            <td th:text="${customer.vatNumber}"></td>
+            <td th:text="${customer.email}"></td>
+            <td th:text="${customer.phone}"></td>
             <td th:text="${customer.address}"></td>
             <td th:text="${customer.postcode}"></td>
             <td th:text="${customer.city}"></td>
@@ -59,7 +65,7 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <h5>Are you sure you want to delete <div th:text="${customer.customerName}"></div></h5>
+                      <h5>Are you sure you want to delete Company </h5><h5 th:text="${customer.customerName}"></h5>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
