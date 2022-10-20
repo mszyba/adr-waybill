@@ -12,49 +12,29 @@
 <!--HEAD-->
 <head th:fragment="baseHeader(links)">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
   <meta name="description" content="">
   <meta name="author" content="m.szyba@gmail.com">
   <title>ADR Waybill</title>
 
   <!-- Common styles and scripts -->
   <link th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
-  <link th:href="@{/css/dashboard.css}" rel="stylesheet" />
+  <link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+  <link th:href="@{/webjars/jquery-ui/1.13.2/jquery-ui.min.css}" rel="stylesheet"/>
 
   <!--/* This is a laceholder for additional links */-->
-  <th:block th:replace="${links}" />
+  <th:block th:replace="${links}"/>
 
 </head>
 
 <!--SCRIPTS-->
 <th:block th:fragment="script">
+  <script th:src="@{/webjars/jquery/3.6.1/jquery.min.js}"></script>
+  <script th:src="@{/webjars/jquery-ui/1.13.2/jquery-ui.min.js}"></script>
 
   <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
   <script th:src="@{/webjars/feather-icons/4.28.0/dist/feather.js}"></script>
   <script th:src="@{/js/dashboard.js}"></script>
-
-  <script>
-      $(function() {
-          $("#customer2").autocomplete({
-          source : function(request, response) {
-              $.ajax({
-                  url : "/states",
-                  dataType : "json",
-                  data : {
-                      q : request.term
-                  },
-                  success : function(data) {
-                      //alert(data);
-                      console.log(data);
-                      response(data);
-                  }
-              });
-          },
-          minLength : 1
-      });
-      });
-  </script>
-
 </th:block>
 
 </body>

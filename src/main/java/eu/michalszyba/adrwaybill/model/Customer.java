@@ -1,5 +1,6 @@
 package eu.michalszyba.adrwaybill.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,5 +33,6 @@ public class Customer {
             name = "customers_companies",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "company_id"))
+    @JsonIgnore
     private Set<Company> companies = new HashSet<>();
 }

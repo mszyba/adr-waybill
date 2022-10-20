@@ -24,23 +24,23 @@ public class CustomerRestController {
     }
 
 
-    @GetMapping
-    public ResponseEntity<String> customerList(@RequestParam(value = "q", required = false) String term) {
-        List<Customer> strings = customerService.getAutocomplete(term);
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        String resp = "";
-
-        try {
-            resp = objectMapper.writeValueAsString(strings);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        System.out.println("==================+++++");
-        System.out.println(strings);
-        System.out.println("==================+++++====");
-        System.out.println(resp);
-
-        return new ResponseEntity<>(resp, HttpStatus.OK);
-    }
+//    @GetMapping
+//    public ResponseEntity<String> customerList(@RequestParam(value = "q", required = false) String term) {
+//        List<Customer> strings = customerService.getAutocomplete(term);
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String resp = "";
+//
+//        try {
+//            resp = objectMapper.writeValueAsString(strings);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println("==================+++++");
+//        System.out.println(strings);
+//        System.out.println("==================+++++====");
+//        System.out.println(resp);
+//
+//        return new ResponseEntity<>(resp, HttpStatus.OK);
+//    }
 }

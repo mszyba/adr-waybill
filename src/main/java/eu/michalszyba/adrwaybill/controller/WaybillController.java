@@ -1,9 +1,11 @@
 package eu.michalszyba.adrwaybill.controller;
 
 import com.lowagie.text.DocumentException;
+import eu.michalszyba.adrwaybill.dto.CustomerValue;
 import eu.michalszyba.adrwaybill.model.*;
 import eu.michalszyba.adrwaybill.service.*;
 import eu.michalszyba.adrwaybill.util.PDFGeneratorWaybill;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/waybill")
 public class WaybillController {
@@ -67,6 +71,16 @@ public class WaybillController {
         return "waybill/waybill-details";
     }
 
+    @GetMapping(value = "/customer/autocomplete")
+    @ResponseBody
+    public List<Customer> customerAutocomplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
+//        List<Customer> autocomplete = customerService.getAutocomplete(term);
+
+        List<Customer> autocomplete = customerService.getAutocompleteForCurrentUser(term);
+
+//        List<Customer> autocomplete = customerService.getAutocomplete2(term);
+        return autocomplete;
+    }
 
     @PostMapping(value = "/addShippedItem", params = {"addShippedItem"})
     public String addShippedItem(ShippedItem shippedItem) {
@@ -76,6 +90,7 @@ public class WaybillController {
 
     @PostMapping(value = "/add", params = {"saveForm"})
     public String postAddWaybill(@ModelAttribute Waybill waybill) {
+
         // get List of ShippedItems from form
         List<ShippedItem> shippedItems = shippedItemService.getShippedItems();
 

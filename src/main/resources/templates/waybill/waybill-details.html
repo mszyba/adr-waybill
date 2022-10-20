@@ -58,27 +58,26 @@
               </select>
             </div>
 
-
-<!--            <div class="col-md-6">-->
-<!--              <label class="small mb-1">Customer</label>-->
-<!--              <select th:field="*{customerId}" class="form-select" id="customer">-->
-<!--                <th:block th:each="customer : ${customers}">-->
-<!--                  <option th:text="${customer.customerName}" th:value="${customer.id}"></option>-->
-<!--                </th:block>-->
-<!--              </select>-->
-<!--            </div>-->
-
-
+<!--            <input id="customer-id" name="customerId" class="form-class" th:field="*{customerId}" type="hidden">-->
+<!--            <input id="customer-address" name="customerAddress" class="form-class" th:field="*{customerAddress}">-->
             <div class="col-md-6">
-              <label class="small mb-1" for="customer2">Customer</label>
-              <input id="customer2" class="form-control" th:field="*{customerName}" type="text">
-<!--              <select th:field="*{customerId}" class="form-control select2-selection&#45;&#45;single" id="customer">-->
-<!--                <option value="">Search something</option>-->
+              <input id="customer-id" name="customerId" th:field="*{customerId}" type="hidden">
 
-<!--&lt;!&ndash;                <th:block th:each="customer : ${customers}">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <option th:text="${customer.customerName}" th:value="${customer.id}"></option>&ndash;&gt;-->
-<!--&lt;!&ndash;                </th:block>&ndash;&gt;-->
-<!--              </select>-->
+              <label class="small mb-1" for="customer-input">Customer</label>
+              <input id="customer-input" class="form-control">
+
+              <label class="small mb-1" for="customer-address">Customer Address</label>
+              <input id="customer-address" class="form-control">
+
+              <label class="small mb-1" for="customer-postcode">Customer Post Code</label>
+              <input id="customer-postcode" class="form-control">
+
+              <label class="small mb-1" for="customer-city">Customer City</label>
+              <input id="customer-city" class="form-control">
+
+              <label class="small mb-1" for="customer-vat">Customer VAT No.</label>
+              <input id="customer-vat" class="form-control">
+
             </div>
 
 
@@ -169,23 +168,7 @@
   </section>
 
 
-<script>
-    $("#customer2").autocomplete({
-        theme: "bootstrap4",
-        ajax: {
-            url: '/states',
-            dataType: 'json',
-            delay: 250,
-            processResults: function (response) {
-                console.log(response);
-                return {
-                    results: response
-                };
-            },
-            cache: true
-        }
-    });
-</script>
+
 
 </body>
 </html>

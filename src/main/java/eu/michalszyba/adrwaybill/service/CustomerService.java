@@ -8,29 +8,24 @@ import eu.michalszyba.adrwaybill.repository.CompanyRepository;
 import eu.michalszyba.adrwaybill.repository.CustomerRepository;
 import eu.michalszyba.adrwaybill.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final UserRepository userRepository;
-    private final CompanyRepository companyRepository;
     private final UserService userService;
+    private final CompanyService companyService;
 
-    public CustomerService(CustomerRepository customerRepository, UserRepository userRepository, CompanyRepository companyRepository, UserService userService) {
+    public CustomerService(CustomerRepository customerRepository, UserService userService, CompanyService companyService) {
         this.customerRepository = customerRepository;
-        this.userRepository = userRepository;
-        this.companyRepository = companyRepository;
         this.userService = userService;
+        this.companyService = companyService;
     }
 
     public List<Customer> getAllCustomers() {
@@ -47,7 +42,7 @@ public class CustomerService {
     }
 
     public Customer getByIdForCurrentUser(Long id) {
-        Company companyForCurrentUser = userService.getCompanyForCurrentUser();
+        Company companyForCurrentUser = companyService.getCompanyCurrentUser();
         Optional<Customer> customer = customerRepository.findByIdAndCompaniesEquals(id, companyForCurrentUser);
         return customer.orElseThrow(
                 () -> new CustomerIsNotForCompanyException("We can't find customer with id: " + id + " for " + companyForCurrentUser.getEmail()));
@@ -57,13 +52,22 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-    public List<Customer> getAutocomplete(String term) {
+//    public List<Customer> getAutocomplete(String term) {
+//        return customerRepository.findAll().stream().filter(
+//                s -> s
+//                        .getCustomerName()
+//                        .toLowerCase(Locale.ROOT)
+//                        .contains(term.toLowerCase(Locale.ROOT))).collect(Collectors.toList());
+//    }
+//
+//    public List<Customer> getAutocomplete2(String term) {
+//        return customerRepository.findCustomersByCustomerNameContains(term);
+//    }
 
-        return customerRepository.findAll().stream().filter(
-                s -> s
-                        .getCustomerName()
-                        .toLowerCase(Locale.ROOT)
-                        .contains(term.toLowerCase(Locale.ROOT))).collect(Collectors.toList());
+    public List<Customer> getAutocompleteForCurrentUser(String term) {
+        Company companyCurrentUser = companyService.getCompanyCurrentUser();
+        return customerRepository
+                .findCustomersByCustomerNameContainsAndCompaniesEquals(term, companyCurrentUser);
 
     }
 
@@ -72,12 +76,14 @@ public class CustomerService {
     }
 
     public List<Customer> getCustomersOfCompanyCurrentUser() {
-        User user = userService.getCurrentUser();
-        Company company = companyRepository
-                .findByUsersEquals(user)
-                .orElseThrow(
-                        () -> new NoSuchElementException("We can't find Company for username: " + user.getEmail()));
+        Company companyCurrentUser = companyService.getCompanyCurrentUser();
 
-        return customerRepository.findAllByCompaniesEquals(company);
+//        User user = userService.getCurrentUser();
+//        Company company = companyRepository
+//                .findByUsersEquals(user)
+//                .orElseThrow(
+//                        () -> new NoSuchElementException("We can't find Company for username: " + user.getEmail()));
+
+        return customerRepository.findAllByCompaniesEquals(companyCurrentUser);
     }
 }

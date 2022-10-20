@@ -1,53 +1,41 @@
-/* globals Chart:false, feather:false */
 
 (() => {
   'use strict'
 
   feather.replace({ 'aria-hidden': 'true' })
 
-  // Graphs
-  const ctx = document.getElementById('myChart')
-  // eslint-disable-next-line no-unused-vars
-  const myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ],
-      datasets: [{
-        data: [
-          15339,
-          21345,
-          18483,
-          24003,
-          23489,
-          24092,
-          12034
-        ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: false
-          }
-        }]
+  $(function () {
+    $("#customer-input").autocomplete({
+      source: function (request, response) {
+        $.ajax({
+          url: "/waybill/customer/autocomplete",
+          dataType: "json",
+          data: {
+            term: request.term
+          },
+          success: function (res) {
+            let result;
+            result = $.map(res, function (obj){
+              return {
+                label: obj.customerName,
+                value: obj.customerName,
+                data: obj
+              };
+            });
+            response(result);
+          },
+        });
       },
-      legend: {
-        display: false
+      select: function (event, selectedData) {
+        let customer = selectedData.item.data;
+        console.log(customer);
+        $('#customer-id').val(customer.id);
+        $('#customer-address').val(customer.address);
+        $('#customer-postcode').val(customer.postcode);
+        $('#customer-city').val(customer.city);
+        $('#customer-vat').val(customer.vatNumber);
       }
-    }
-  })
+    });
+  });
+
 })()
