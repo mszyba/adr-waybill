@@ -23,7 +23,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     Optional<Customer> findByIdAndCompaniesEquals(Long id, Company company);
 
-    List<Customer> findCustomersByCustomerNameContains(String term);
-
     List<Customer> findCustomersByCustomerNameContainsAndCompaniesEquals(String term, Company company);
 }

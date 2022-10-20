@@ -74,12 +74,7 @@ public class WaybillController {
     @GetMapping(value = "/customer/autocomplete")
     @ResponseBody
     public List<Customer> customerAutocomplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
-//        List<Customer> autocomplete = customerService.getAutocomplete(term);
-
-        List<Customer> autocomplete = customerService.getAutocompleteForCurrentUser(term);
-
-//        List<Customer> autocomplete = customerService.getAutocomplete2(term);
-        return autocomplete;
+        return customerService.getAutocompleteForCurrentUser(term);
     }
 
     @PostMapping(value = "/addShippedItem", params = {"addShippedItem"})

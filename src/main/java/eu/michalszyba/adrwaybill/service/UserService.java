@@ -62,10 +62,6 @@ public class UserService {
         }
     }
 
-    public Company getCompanyForCurrentUser() {
-        return getCurrentUser().getCompany();
-    }
-
     private boolean emailExist(String email) {
         return userRepository.findByEmail(email) != null;
     }

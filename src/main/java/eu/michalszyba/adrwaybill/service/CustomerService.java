@@ -52,23 +52,10 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-//    public List<Customer> getAutocomplete(String term) {
-//        return customerRepository.findAll().stream().filter(
-//                s -> s
-//                        .getCustomerName()
-//                        .toLowerCase(Locale.ROOT)
-//                        .contains(term.toLowerCase(Locale.ROOT))).collect(Collectors.toList());
-//    }
-//
-//    public List<Customer> getAutocomplete2(String term) {
-//        return customerRepository.findCustomersByCustomerNameContains(term);
-//    }
-
     public List<Customer> getAutocompleteForCurrentUser(String term) {
         Company companyCurrentUser = companyService.getCompanyCurrentUser();
         return customerRepository
                 .findCustomersByCustomerNameContainsAndCompaniesEquals(term, companyCurrentUser);
-
     }
 
     public List<Customer> getCustomersOfCompany(Company company) {
@@ -77,13 +64,6 @@ public class CustomerService {
 
     public List<Customer> getCustomersOfCompanyCurrentUser() {
         Company companyCurrentUser = companyService.getCompanyCurrentUser();
-
-//        User user = userService.getCurrentUser();
-//        Company company = companyRepository
-//                .findByUsersEquals(user)
-//                .orElseThrow(
-//                        () -> new NoSuchElementException("We can't find Company for username: " + user.getEmail()));
-
         return customerRepository.findAllByCompaniesEquals(companyCurrentUser);
     }
 }
