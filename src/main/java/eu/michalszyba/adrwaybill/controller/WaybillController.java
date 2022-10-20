@@ -42,10 +42,10 @@ public class WaybillController {
         return customerService.getAllCustomers();
     }
 
-    @ModelAttribute("companies")
-    public List<Company> populateCompany() {
-        return companyService.getAllCompany();
-    }
+//    @ModelAttribute("companies")
+//    public List<Company> populateCompany() {
+//        return companyService.getAllCompany();
+//    }
 
     @ModelAttribute("waybills")
     public List<Waybill> populateWaybill() {
@@ -67,7 +67,7 @@ public class WaybillController {
         model.addAttribute("waybill", new Waybill());
         model.addAttribute("shippedItem", new ShippedItem());
         model.addAttribute("filledShippedItem", shippedItemService.getShippedItems());
-        System.out.println("++++++++++++");
+        model.addAttribute("company", companyService.getCompanyCurrentUser());
         return "waybill/waybill-details";
     }
 
@@ -85,12 +85,16 @@ public class WaybillController {
 
     @PostMapping(value = "/add", params = {"saveForm"})
     public String postAddWaybill(@ModelAttribute Waybill waybill) {
+        Company companyCurrentUser = companyService.getCompanyCurrentUser();
 
         // get List of ShippedItems from form
         List<ShippedItem> shippedItems = shippedItemService.getShippedItems();
 
         // set List of shippedItems to Waybill
         waybill.setShippedItems(shippedItemService.getShippedItems());
+
+        // set only Company for current User
+        waybill.setCompanyId(companyCurrentUser.getId());
 
         // save Waybill form
         waybillService.save(waybill);
