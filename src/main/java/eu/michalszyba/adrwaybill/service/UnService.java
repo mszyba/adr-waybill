@@ -5,6 +5,7 @@ import eu.michalszyba.adrwaybill.repository.UnRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UnService {
@@ -25,6 +26,10 @@ public class UnService {
     }
 
     public List<Un> getAllUnByUnNumber(String unNumber) {
-        return unRepository.findAllByUnNumberIsStartingWith(unNumber);
+        return unRepository
+                .findAllByUnNumberIsStartingWith(unNumber)
+                .stream()
+                .limit(10)
+                .collect(Collectors.toList());
     }
 }

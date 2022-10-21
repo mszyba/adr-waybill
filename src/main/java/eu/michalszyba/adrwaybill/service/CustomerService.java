@@ -11,8 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -54,8 +56,12 @@ public class CustomerService {
 
     public List<Customer> getAutocompleteForCurrentUser(String term) {
         Company companyCurrentUser = companyService.getCompanyCurrentUser();
+
         return customerRepository
-                .findCustomersByCustomerNameContainsAndCompaniesEquals(term, companyCurrentUser);
+                .findCustomersByCustomerNameContainsAndCompaniesEquals(term, companyCurrentUser)
+                .stream()
+                .limit(10) // return max 10 results
+                .collect(Collectors.toList());
     }
 
     public List<Customer> getCustomersOfCompany(Company company) {
