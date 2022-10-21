@@ -73,4 +73,42 @@
       }
     });
   })
+
+
+  $(function () {
+    $("#un-input").autocomplete({
+      source: function (request, response) {
+        $.ajax({
+          url: "/waybill/un/autocomplete",
+          dataType: "json",
+          data: {
+            term: request.term
+          },
+          success: function (res) {
+            let result;
+            console.log(res);
+            result = $.map(res, function (obj){
+              return {
+                label: [obj.unNumber, obj.unNameAndDescription, obj.unLabels, obj.unPackingGroup].join(", "),
+                value: obj.unNumber,
+                data: obj
+              };
+            });
+            console.log(result);
+            response(result);
+          },
+        });
+      },
+      select: function (event, selectedData) {
+        let un = selectedData.item.data;
+        console.log(un);
+        $('#un-id').val(un.id);
+        $('#un-unNumber').val(un.unNumber);
+        $('#un-unNameAndDescription').val(un.unNameAndDescription);
+        $('#un-unLabels').val(un.unLabels);
+        $('#un-unClass').val(un.unClass);
+      }
+    });
+  })
+
 })()

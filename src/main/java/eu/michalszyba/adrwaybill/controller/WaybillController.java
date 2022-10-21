@@ -77,6 +77,12 @@ public class WaybillController {
         return customerService.getAutocompleteForCurrentUser(term);
     }
 
+    @GetMapping(value = "/un/autocomplete")
+    @ResponseBody
+    public List<Un> unAutocomplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
+        return unService.getAllUnByUnNumber(term);
+    }
+
     @PostMapping(value = "/addShippedItem", params = {"addShippedItem"})
     public String addShippedItem(ShippedItem shippedItem) {
         shippedItemService.addToList(shippedItem);

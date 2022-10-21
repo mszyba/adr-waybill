@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org"
-    th:insert="layout/base-layout :: layout(~{ :: #titleContent}, ~{}, ~{ :: #content})">
+      th:insert="layout/base-layout :: layout(~{ :: #titleContent}, ~{}, ~{ :: #content})">
 
 <body>
 <!--  <h1 id="titleContent">Dodaj klienta</h1>-->
@@ -9,48 +9,46 @@
   <h1 th:unless="${waybill.id == null}" class="mt-4">Edytuj List ADR</h1>
 </div>
 
-  <section id="content">
-    <div class="card mb-4">
-      <div class="card-header">ADR Waybill Details</div>
+<section id="content">
+  <div class="card mb-4">
+    <div class="card-header">ADR Waybill Details</div>
 
-      <div class="card-body">
-        <div>
-          <table th:if="${filledShippedItem.size() != 0}" class="table table-hover">
-            <thead>
-            <tr>
-              <th>UN</th>
-              <th>Qty</th>
-              <th>ccc</th>
-              <th>Un Labels</th>
-              <th>Un Packa</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item : ${filledShippedItem}">
-              <td th:text="${item.unNumber}"></td>
-              <td th:text="${item.quantity}"></td>
-              <td th:text="${item.volume}"></td>
-              <td th:text="${item.unLabels}"></td>
-              <td th:text="${item.unPackingGroup}"></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
+    <div class="card-body">
+      <div>
+        <table th:if="${filledShippedItem.size() != 0}" class="table table-hover">
+          <thead>
+          <tr>
+            <th>UN</th>
+            <th>Qty</th>
+            <th>ccc</th>
+            <th>Un Labels</th>
+            <th>Un Packa</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="item : ${filledShippedItem}">
+            <td th:text="${item.unNumber}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${item.volume}"></td>
+            <td th:text="${item.unLabels}"></td>
+            <td th:text="${item.unPackingGroup}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
-        <!--Add new Shipped Item button-->
-        <!-- Button trigger modal -->
-        <a class="btn btn-primary"
-           data-bs-toggle="modal"
-           data-bs-target="#modal-warning"
-           th:attr="data-bs-target='#modal-warning'">
-          Add new Shipped Item</a>
-        <form th:action="@{/waybill/add}" th:object="${waybill}" method="post" id="formAddWaybill">
-          <!-- Form Row-->
-          <div class="row gx-3 mb-3">
-            <input type="hidden" th:field="*{id}" th:value="*{id}">
-            <!-- Form Group (Customer name)-->
-            <div class="col-md-6">
-              <fieldset disabled>
+      <!--Add new Shipped Item button-->
+      <!-- Button trigger modal -->
+      <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-warning"
+         th:attr="data-bs-target='#modal-warning'">
+        Add new Shipped Item</a>
+      <form th:action="@{/waybill/add}" th:object="${waybill}" method="post" id="formAddWaybill">
+        <!-- Form Row-->
+        <div class="row gx-3 mb-3">
+          <input type="hidden" th:field="*{id}" th:value="*{id}">
+          <!-- Form Group (Company name)-->
+          <div class="col-md-6">
+            <fieldset disabled>
 
               <label class="small mb-1" for="company-name">Company</label>
               <input id="company-name" class="form-control" th:value="${company.companyName}">
@@ -66,16 +64,16 @@
 
               <label class="small mb-1" for="company-vat">Company VAT No.</label>
               <input id="company-vat" class="form-control" th:value="${company.vatNumber}">
-              </fieldset>
-            </div>
+            </fieldset>
+          </div>
 
-            <div class="col-md-6">
-              <input id="customer-id" name="customerId" th:field="*{customerId}" type="hidden">
+          <div class="col-md-6">
+            <input id="customer-id" name="customerId" th:field="*{customerId}" type="hidden">
 
-              <label class="small mb-1" for="customer-input">Customer</label>
-              <input id="customer-input" class="form-control">
+            <label class="small mb-1" for="customer-input">Customer</label>
+            <input id="customer-input" class="form-control">
 
-              <fieldset disabled>
+            <fieldset disabled>
               <label class="small mb-1" for="customer-address">Customer Address</label>
               <input id="customer-address" class="form-control" disabled>
 
@@ -87,96 +85,106 @@
 
               <label class="small mb-1" for="customer-vat">Customer VAT No.</label>
               <input id="customer-vat" class="form-control">
-              </fieldset>
-            </div>
-
-          </div>
-          <!--Form Row-->
-          <div class="row gx-3 mb-3">
-            <!-- Form Group (driver)-->
-            <div class="col-md-6">
-              <label class="small mb-1" for="driveName">Drive Name</label>
-              <input th:field="*{driverName}" class="form-control" id="driveName" type="text" placeholder="" value="">
-            </div>
-            <div class="col-md-6">
-              <label class="small mb-1" for="driveDocument">Drive Documents</label>
-              <input th:field="*{driverDocument}" class="form-control" id="driveDocument" type="text" placeholder="" value="">
-            </div>
+            </fieldset>
           </div>
 
-          <!--Form Row-->
-          <div class="row gx-3 mb-3">
-            <!-- Form Group (driver)-->
-            <div class="col-md-6">
-              <label class="small mb-1" for="aaa">Desc delivery</label>
-              <input th:field="*{descriptionDelivery}" class="form-control" id="aaa" type="text" placeholder="" value="">
-            </div>
-            <div class="col-md-6">
-              <label class="small mb-1" for="bb">Transportation</label>
-              <input th:field="*{transportation}" class="form-control" id="bb" type="text" placeholder="" value="">
-            </div>
+        </div>
+        <!--Form Row-->
+        <div class="row gx-3 mb-3">
+          <!-- Form Group (driver)-->
+          <div class="col-md-6">
+            <label class="small mb-1" for="driveName">Drive Name</label>
+            <input th:field="*{driverName}" class="form-control" id="driveName" type="text" placeholder="" value="">
           </div>
+          <div class="col-md-6">
+            <label class="small mb-1" for="driveDocument">Drive Documents</label>
+            <input th:field="*{driverDocument}" class="form-control" id="driveDocument" type="text" placeholder=""
+                   value="">
+          </div>
+        </div>
 
-          <!--Submit button-->
-          <button class="btn btn-dark" type="submit" name="saveForm">Save</button>
-        </form>
+        <!--Form Row-->
+        <div class="row gx-3 mb-3">
+          <!-- Form Group (driver)-->
+          <div class="col-md-6">
+            <label class="small mb-1" for="aaa">Desc delivery</label>
+            <input th:field="*{descriptionDelivery}" class="form-control" id="aaa" type="text" placeholder="" value="">
+          </div>
+          <div class="col-md-6">
+            <label class="small mb-1" for="bb">Transportation</label>
+            <input th:field="*{transportation}" class="form-control" id="bb" type="text" placeholder="" value="">
+          </div>
+        </div>
+
+        <!--Submit button-->
+        <button class="btn btn-dark" type="submit" name="saveForm">Save</button>
+      </form>
 
 
-        <!-- Modal -->
-        <div class="modal fade" th:id="modal-warning" tabindex="-1" aria-labelledby="modalWarning" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Add new line</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="row gx-3 mb-3">
-                  <form th:action="@{/waybill/addShippedItem}" th:object="${shippedItem}" method="post" id="formAddShippedItem">
-                    <div class="form-control">
-                      <!-- Form Group (Shipped Item)-->
-                      <!--Row-->
-                      <div class="row gx-3 mb-3">
-                        <div class="col-md-6">
-                          <label class="small mb-1">UN Number</label>
-
-
-                          <select th:field="*{unId}" class="form-select" id="unNumber">
-                            <option th:each="un : ${uns}"
-                                    th:value="${un.id}"
-                                    th:text="${un.unNumber} + ' ' + ${un.unNameAndDescription} + ', ' + ${un.unLabels} + ', ' + ${un.unPackingGroup}">
-                              Un number, descriptions, label, packaging group
-                            </option>
-                          </select>
-                        </div>
+      <!-- Modal -->
+      <div class="modal fade" th:id="modal-warning" tabindex="-1" aria-labelledby="modalWarning" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalTitle">Add new line</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row gx-3 mb-3">
+                <form th:action="@{/waybill/addShippedItem}" th:object="${shippedItem}" method="post"
+                      id="formAddShippedItem">
+                  <div class="form-control">
+                    <!-- Form Group (Shipped Item)-->
+                    <!--Row-->
+                    <div class="row gx-3 mb-3">
+                      <input id="un-id" name="unId" th:field="*{unId}" class="form-control" type="hidden">
+                      <div class="col-md-3">
+                        <label class="small mb-1" for="un-input">UN number</label>
+                        <input id="un-input" class="form-control">
                       </div>
-                      <!--Row-->
-                      <div class="row gx-3 mb-3">
-                        <div class="col-md-6">
-                          <label class="small mb-1" for="quantity">Quantity</label>
-                          <input th:field="*{quantity}" class="form-control" id="quantity" type="text" placeholder="" value="">
-                        </div>
-                        <div class="col-md-6">
-                          <label class="small mb-1" for="volume">Volume</label>
-                          <input th:field="*{volume}" class="form-control" id="volume" type="text" placeholder="" value="">
-                        </div>
+                      <div class="col-md-9">
+                        <label class="small mb-1" for="un-unNameAndDescription">unNameAndDescription</label>
+                        <input id="un-unNameAndDescription" class="form-control" disabled>
+                      </div>
+                      <div class="col-md-3">
+                        <label class="small mb-1" for="un-unLabels">unLabels</label>
+                        <input id="un-unLabels" class="form-control" disabled>
+                      </div>
+                      <div class="col-md-3">
+                        <label class="small mb-1" for="un-unClass">unClass</label>
+                        <input id="un-unClass" class="form-control" disabled>
                       </div>
                     </div>
-                  </form>
-                </div>
+                  </div>
+                  <!--Row-->
+                  <div class="row gx-3 mb-3">
+                    <div class="col-md-6">
+                      <label class="small mb-1" for="quantity">Quantity</label>
+                      <input th:field="*{quantity}" class="form-control" id="quantity" type="text" placeholder=""
+                             value="">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="small mb-1" for="volume">Volume</label>
+                      <input th:field="*{volume}" class="form-control" id="volume" type="text" placeholder=""
+                             value="">
+                    </div>
+                  </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="addShippedItem" form="formAddShippedItem">Add NEW ITEM</button>
-              </div>
+              </form>
             </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="addShippedItem" form="formAddShippedItem">Add NEW
+              ITEM
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </section>
-
-
+  </div>
+  </div>
+</section>
 
 
 </body>

@@ -23,4 +23,8 @@ public class UnService {
         return unRepository.findById(id)
                 .orElse(null);
     }
+
+    public List<Un> getAllUnByUnNumber(String unNumber) {
+        return unRepository.findAllByUnNumberIsStartingWith(unNumber);
+    }
 }

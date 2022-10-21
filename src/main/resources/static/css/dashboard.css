@@ -141,3 +141,8 @@ body {
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
 }
+
+.ui-autocomplete {
+  z-index: 2147483647;
+}
+
