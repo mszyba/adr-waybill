@@ -1,15 +1,15 @@
 version: '3.8'
 services:
-  mysql-3309:
+  mysql-3310:
     image: mysql:8
-    container_name: mysql-3309
+    container_name: mysql-3310
     networks:
       - adr-waybill
     restart: always
     env_file:
       - .env
     ports:
-      - "3309:3306"
+      - "3310:3306"
 
   adr-waybill:
     build:
@@ -22,7 +22,7 @@ services:
     networks:
       - adr-waybill
     depends_on:
-      - mysql-3309
+      - mysql-3310
     env_file:
       - .env
     tty: true
