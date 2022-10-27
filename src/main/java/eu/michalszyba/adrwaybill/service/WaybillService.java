@@ -1,8 +1,6 @@
 package eu.michalszyba.adrwaybill.service;
 
 import eu.michalszyba.adrwaybill.model.*;
-import eu.michalszyba.adrwaybill.repository.CompanyRepository;
-import eu.michalszyba.adrwaybill.repository.CustomerRepository;
 import eu.michalszyba.adrwaybill.repository.WaybillRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,19 +12,13 @@ import java.util.List;
 public class WaybillService {
 
     private final WaybillRepository waybillRepository;
-    private final CompanyRepository companyRepository;
-    private final CustomerRepository customerRepository;
     private final CompanyService companyService;
     private final CustomerService customerService;
-    private final UnService unService;
 
-    public WaybillService(WaybillRepository waybillRepository, CompanyRepository companyRepository, CustomerRepository customerRepository, CompanyService companyService, CustomerService customerService, UnService unService) {
+    public WaybillService(WaybillRepository waybillRepository, CompanyService companyService, CustomerService customerService) {
         this.waybillRepository = waybillRepository;
-        this.companyRepository = companyRepository;
-        this.customerRepository = customerRepository;
         this.companyService = companyService;
         this.customerService = customerService;
-        this.unService = unService;
     }
 
     public List<Waybill> getAllWaybill() {

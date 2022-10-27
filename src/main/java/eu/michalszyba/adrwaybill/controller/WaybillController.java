@@ -1,7 +1,6 @@
 package eu.michalszyba.adrwaybill.controller;
 
 import com.lowagie.text.DocumentException;
-import eu.michalszyba.adrwaybill.dto.CustomerValue;
 import eu.michalszyba.adrwaybill.model.*;
 import eu.michalszyba.adrwaybill.service.*;
 import eu.michalszyba.adrwaybill.util.PDFGeneratorWaybill;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,16 +35,7 @@ public class WaybillController {
         this.shippedItemService = shippedItemService;
     }
 
-    @ModelAttribute("customers")
-    public List<Customer> populateCustomer() {
-        return customerService.getAllCustomers();
-    }
-
-//    @ModelAttribute("companies")
-//    public List<Company> populateCompany() {
-//        return companyService.getAllCompany();
-//    }
-
+//    ToDo: need add only waybills for Company
     @ModelAttribute("waybills")
     public List<Waybill> populateWaybill() {
         return waybillService.getAllWaybill();

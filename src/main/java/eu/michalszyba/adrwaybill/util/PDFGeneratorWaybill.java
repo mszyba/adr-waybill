@@ -5,14 +5,11 @@ import com.lowagie.text.pdf.CMYKColor;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import eu.michalszyba.adrwaybill.model.Company;
 import eu.michalszyba.adrwaybill.model.ShippedItem;
 import eu.michalszyba.adrwaybill.model.Waybill;
-import lombok.Setter;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 public class PDFGeneratorWaybill {
 

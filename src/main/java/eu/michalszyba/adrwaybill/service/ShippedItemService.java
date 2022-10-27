@@ -15,7 +15,7 @@ public class ShippedItemService {
     private final static int FACTOR_GROUP_II = 3;
     private final static int FACTOR_GROUP_III = 1;
 
-    List<ShippedItem> shippedItemList = new ArrayList<>();
+    final List<ShippedItem> shippedItemList = new ArrayList<>();
 
     public ShippedItemService(UnService unService) {
         this.unService = unService;

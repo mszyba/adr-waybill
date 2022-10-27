@@ -1,7 +1,6 @@
 package eu.michalszyba.adrwaybill.service;
 
 import eu.michalszyba.adrwaybill.exception.UserAlreadyExistException;
-import eu.michalszyba.adrwaybill.model.Company;
 import eu.michalszyba.adrwaybill.model.Role;
 import eu.michalszyba.adrwaybill.model.User;
 import eu.michalszyba.adrwaybill.repository.RoleRepository;

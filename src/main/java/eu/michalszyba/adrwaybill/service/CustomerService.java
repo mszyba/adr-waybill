@@ -4,15 +4,11 @@ import eu.michalszyba.adrwaybill.exception.CustomerIsNotForCompanyException;
 import eu.michalszyba.adrwaybill.model.Company;
 import eu.michalszyba.adrwaybill.model.Customer;
 import eu.michalszyba.adrwaybill.model.User;
-import eu.michalszyba.adrwaybill.repository.CompanyRepository;
 import eu.michalszyba.adrwaybill.repository.CustomerRepository;
-import eu.michalszyba.adrwaybill.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Locale;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -62,10 +58,6 @@ public class CustomerService {
                 .stream()
                 .limit(10) // return max 10 results
                 .collect(Collectors.toList());
-    }
-
-    public List<Customer> getCustomersOfCompany(Company company) {
-        return customerRepository.findAllByCompaniesEquals(company);
     }
 
     public List<Customer> getCustomersOfCompanyCurrentUser() {

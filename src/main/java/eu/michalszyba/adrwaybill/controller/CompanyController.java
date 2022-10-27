@@ -2,10 +2,8 @@ package eu.michalszyba.adrwaybill.controller;
 
 import com.lowagie.text.DocumentException;
 import eu.michalszyba.adrwaybill.model.Company;
-import eu.michalszyba.adrwaybill.model.Customer;
 import eu.michalszyba.adrwaybill.service.CompanyService;
 import eu.michalszyba.adrwaybill.util.PDFGenerator;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -74,7 +72,7 @@ public class CompanyController {
     public void generatePdf(HttpServletResponse response) throws DocumentException, IOException {
 
         response.setContentType("application/pdf");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd:HH:mm:SS");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss");
 
         String currentDateTime = dateFormat.format(new Date());
         String headerKey = "Content-Disposition";
