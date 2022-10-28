@@ -49,7 +49,6 @@
           <!-- Form Group (Company name)-->
           <div class="col-md-6">
             <fieldset disabled>
-
               <label class="small mb-1" for="company-name">Company</label>
               <input id="company-name" class="form-control" th:value="${company.companyName}">
 
@@ -71,21 +70,19 @@
             <input id="customer-id" name="customerId" th:field="*{customerId}" type="hidden">
 
             <label class="small mb-1" for="customer-input">Customer</label>
-            <input id="customer-input" class="form-control">
+            <input id="customer-input" class="form-control" required>
 
-            <fieldset disabled>
-              <label class="small mb-1" for="customer-address">Customer Address</label>
-              <input id="customer-address" class="form-control" disabled>
+            <label class="small mb-1" for="customer-address">Customer Address</label>
+            <input id="customer-address" class="form-control" disabled>
 
-              <label class="small mb-1" for="customer-postcode">Customer Post Code</label>
-              <input id="customer-postcode" class="form-control">
+            <label class="small mb-1" for="customer-postcode">Customer Post Code</label>
+            <input id="customer-postcode" class="form-control" disabled>
 
-              <label class="small mb-1" for="customer-city">Customer City</label>
-              <input id="customer-city" class="form-control">
+            <label class="small mb-1" for="customer-city">Customer City</label>
+            <input id="customer-city" class="form-control" disabled>
 
-              <label class="small mb-1" for="customer-vat">Customer VAT No.</label>
-              <input id="customer-vat" class="form-control">
-            </fieldset>
+            <label class="small mb-1" for="customer-vat">Customer VAT No.</label>
+            <input id="customer-vat" class="form-control" disabled>
           </div>
 
         </div>
@@ -94,12 +91,11 @@
           <!-- Form Group (driver)-->
           <div class="col-md-6">
             <label class="small mb-1" for="driveName">Drive Name</label>
-            <input th:field="*{driverName}" class="form-control" id="driveName" type="text" placeholder="" value="">
+            <input th:field="*{driverName}" class="form-control" id="driveName" type="text">
           </div>
           <div class="col-md-6">
             <label class="small mb-1" for="driveDocument">Drive Documents</label>
-            <input th:field="*{driverDocument}" class="form-control" id="driveDocument" type="text" placeholder=""
-                   value="">
+            <input th:field="*{driverDocument}" class="form-control" id="driveDocument" type="text">
           </div>
         </div>
 
@@ -107,12 +103,12 @@
         <div class="row gx-3 mb-3">
           <!-- Form Group (driver)-->
           <div class="col-md-6">
-            <label class="small mb-1" for="aaa">Desc delivery</label>
-            <input th:field="*{descriptionDelivery}" class="form-control" id="aaa" type="text" placeholder="" value="">
+            <label class="small mb-1" for="descriptionDelivery">Desc delivery</label>
+            <input th:field="*{descriptionDelivery}" class="form-control" id="descriptionDelivery" type="text">
           </div>
           <div class="col-md-6">
-            <label class="small mb-1" for="bb">Transportation</label>
-            <input th:field="*{transportation}" class="form-control" id="bb" type="text" placeholder="" value="">
+            <label class="small mb-1" for="transportation">Transportation</label>
+            <input th:field="*{transportation}" class="form-control" id="transportation" type="text">
           </div>
         </div>
 
@@ -122,7 +118,8 @@
 
 
       <!-- Modal -->
-      <div class="modal fade" th:id="modal-warning" tabindex="-1" aria-labelledby="modalWarning" aria-hidden="true">
+      <div class="modal fade" th:id="modal-warning" tabindex="-1" aria-labelledby="modalWarning"
+           aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
@@ -140,7 +137,7 @@
                       <input id="un-id" name="unId" th:field="*{unId}" class="form-control" type="hidden">
                       <div class="col-md-3">
                         <label class="small mb-1" for="un-input">UN number</label>
-                        <input id="un-input" class="form-control">
+                        <input id="un-input" class="form-control" required>
                       </div>
                       <div class="col-md-9">
                         <label class="small mb-1" for="un-unNameAndDescription">unNameAndDescription</label>
@@ -160,29 +157,30 @@
                   <div class="row gx-3 mb-3">
                     <div class="col-md-6">
                       <label class="small mb-1" for="quantity">Quantity</label>
-                      <input th:field="*{quantity}" class="form-control" id="quantity" type="text" placeholder="" value="">
+                      <input th:field="*{quantity}" class="form-control" id="quantity"
+                             type="number" min="1" step="1" required>
                     </div>
                     <div class="col-md-6">
                       <label class="small mb-1" for="volume">Volume</label>
-                      <input th:field="*{volume}" class="form-control" id="volume" type="text" placeholder="" value="">
+                      <input th:field="*{volume}" class="form-control" id="volume"
+                             type="number" min="1" step="1" required>
                     </div>
                   </div>
-              </form>
+                </form>
+              </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" name="addShippedItem" form="formAddShippedItem">Add NEW
-              ITEM
-            </button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" name="addShippedItem"
+                      form="formAddShippedItem">Add NEW ITEM
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
 </section>
-
 
 </body>
 </html>

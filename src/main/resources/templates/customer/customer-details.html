@@ -20,11 +20,12 @@
             <!-- Form Group (Customer name)-->
             <div class="col-md-6">
               <label class="small mb-1" for="customerName">Customer name</label>
-              <input th:field="*{customerName}" class="form-control" id="customerName" type="text" placeholder="Enter Customer name" value="" required>
+              <input th:field="*{customerName}" class="form-control" id="customerName" type="text"
+                     placeholder="Enter Customer name" value="" required>
             </div>
             <div class="col-md-6">
               <label class="small mb-1" for="vatNo">VAT No</label>
-              <input th:field="*{vatNumber}" class="form-control" id="vatNo" type="text" placeholder="Enter VAT No" value="">
+              <input th:field="*{vatNumber}" class="form-control" id="vatNo" type="text" placeholder="Enter VAT No">
             </div>
           </div>
           <!--Form Row-->
@@ -32,19 +33,19 @@
             <!-- Form Group (address)-->
             <div class="col-md-6">
               <label class="small mb-1" for="postCode">Post Code</label>
-              <input th:field="*{postcode}" class="form-control" id="postCode" type="text" placeholder="" value="">
+              <input th:field="*{postcode}" class="form-control" id="postCode" type="text" required>
             </div>
             <div class="col-md-6">
               <label class="small mb-1" for="city">City</label>
-              <input th:field="*{city}" class="form-control" id="city" type="text" placeholder="" value="">
+              <input th:field="*{city}" class="form-control" id="city" type="text" required>
             </div>
             <div class="col-md-6">
               <label class="small mb-1" for="street">Street</label>
-              <input th:field="*{address}" class="form-control" id="street" type="text" placeholder="" value="">
+              <input th:field="*{address}" class="form-control" id="street" type="text" required>
             </div>
             <div class="col-md-6">
               <label class="small mb-1" for="country">Country</label>
-              <input th:field="*{country}" class="form-control" id="country" type="text" placeholder="" value="">
+              <input th:field="*{country}" class="form-control" id="country" type="text">
             </div>
           </div>
           <!--Form Row-->
@@ -52,11 +53,11 @@
             <!-- Form Group (contact)-->
             <div class="col-md-6">
               <label class="small mb-1" for="emailAddress">E-mail address</label>
-              <input th:field="*{email}" class="form-control" id="emailAddress" type="text" placeholder="" value="">
+              <input th:field="*{email}" class="form-control" id="emailAddress" type="email">
             </div>
             <div class="col-md-6">
               <label class="small mb-1" for="phone">Phone Number</label>
-              <input th:field="*{phone}" class="form-control" id="phone" type="text" placeholder="" value="">
+              <input th:field="*{phone}" class="form-control" id="phone" type="text">
             </div>
           </div>
           <!-- Submit button-->
