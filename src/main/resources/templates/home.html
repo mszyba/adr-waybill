@@ -23,7 +23,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="customer : ${customers}">
+      <tr th:each="customer,stat : ${customers}" th:unless="${stat.index > 7}">
         <td th:text="${customer.id}"></td>
         <td th:text="${customer.customerName}"></td>
         <td th:text="${customer.address}"></td>
